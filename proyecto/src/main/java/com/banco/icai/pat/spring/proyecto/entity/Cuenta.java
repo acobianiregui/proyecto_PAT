@@ -1,5 +1,6 @@
 package com.banco.icai.pat.spring.proyecto.entity;
 
+import com.banco.icai.pat.spring.proyecto.model.Sucursal;
 import jakarta.persistence.*;
 
 @Entity
@@ -7,7 +8,7 @@ public class Cuenta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long cuenta_id;
 
     @Column(nullable = false,unique = true)
     private String iban;
@@ -16,7 +17,8 @@ public class Cuenta {
     private double saldo;
 
     @Column(nullable = false)
-    private String sucursal;
+    @Enumerated(EnumType.STRING)
+    private Sucursal sucursal;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)

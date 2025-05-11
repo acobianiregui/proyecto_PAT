@@ -10,8 +10,13 @@ public final class BancoTools {
     private final String codigo_sucursal_madrid="0418";
     private final String codigo_sucursal_barcelona="1628";
     private final String codigo_sucursal_bilbao="9362";
+    //private final String numero_cuenta=1L;
 
 
+    public static String generarIban(){
+
+        return null;
+    }
 
     //Proceso de calcular digitos de control, consultar documentacion para info
     public static String calcularDC(String ibanSinDC){
