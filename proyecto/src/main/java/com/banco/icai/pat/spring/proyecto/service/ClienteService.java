@@ -18,6 +18,7 @@ public class ClienteService {
     @Autowired
     CuentasRepository cuentasRepository;
 
+
     public static ClientResponse profile(Cliente cliente) {
         if (cliente == null) return null;
         ClientResponse clientResponse = new ClientResponse(cliente.email, cliente.nombre, cliente.cuentas);
