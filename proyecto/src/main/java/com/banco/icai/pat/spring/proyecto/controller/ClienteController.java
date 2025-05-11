@@ -27,7 +27,7 @@ public class ClienteController {
     @ResponseStatus(HttpStatus.CREATED)
     public ClientResponse register(@Valid @RequestBody RegisterRequest register) {
         try {
-            return ClienteService.profile(register);
+            return clienteService.profile(register);
         } catch (DataIntegrityViolationException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(), e);
         }
