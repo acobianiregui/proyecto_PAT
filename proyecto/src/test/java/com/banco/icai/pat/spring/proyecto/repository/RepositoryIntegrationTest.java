@@ -84,6 +84,45 @@ public class RepositoryIntegrationTest {
 
     @Test
     public void borradoCompleto(){ //Al borrar un cliente, se debe borrar to_do lo asociado
+        Cliente cliente= new Cliente();
+        Cuenta cuenta1= new Cuenta();
+        Cuenta cuenta2= new Cuenta();
+        //Cuenta 1
+        cuenta1.setIban(BancoTools.generarIban(Sucursal.BARCELONA,"0001234567"));
+        cuenta1.setSaldo(0);
+        cuenta1.setSucursal(Sucursal.BARCELONA);
+        cuenta1.setCliente(cliente);
+        //Cuenta 2
+        cuenta2.setIban(BancoTools.generarIban(Sucursal.MADRID,"7771234567"));
+        cuenta2.setSaldo(0);
+        cuenta2.setSucursal(Sucursal.MADRID);
+        cuenta2.setCliente(cliente);
+        //Cliente
+        cliente.setNombre("Anton");
+        cliente.setDni("12345678Z");
+        cliente.setApellido_1("Cobian");
+        cliente.setEmail("pepelarana@gmail.com");
+        cliente.setTelefono("640453289");
+        cliente.setPassword("Aventura8");
+        ArrayList<Cuenta> cuentas= new ArrayList<>();
+        cuentas.add(cuenta1);
+        cuentas.add(cuenta2);
+        cliente.setCuentas(cuentas);
 
+        //Guardarlos
+        clientesRepository.save(cliente);
+        cuentasRepository.save(cuenta1);
+        cuentasRepository.save(cuenta2);
+
+        //Comprobar que estan ahi
+        assertEquals(1,clientesRepository.count());
+        assertEquals(2,cuentasRepository.count());
+
+        Cliente busqueda= clientesRepository.findBydni(cliente.getDni()).orElse(null);
+        assertNotNull(busqueda);
+        //Borrar el cliente y comprobar que se han borrado
+        clientesRepository.delete(busqueda);
+        assertEquals(0,clientesRepository.count());
+        assertEquals(0,cuentasRepository.count());
     }
 }
