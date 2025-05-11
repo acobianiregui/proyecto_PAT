@@ -18,10 +18,8 @@ public class Cliente {
     public String nombre;
 
     @Column(nullable = false)
-    public String apellido_1;
+    public String apellido;
 
-    @Column(nullable = true) //Puede haber gente con unico apellido
-    public String apellido_2;
 
     @Column(nullable = false,unique = true)
     public String email;
