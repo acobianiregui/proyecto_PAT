@@ -12,4 +12,7 @@ public class ClienteService {
     @Autowired
     CuentasRepository cuentasRepository;
 
+    //Registro cliente-> Comprobar que no exista (si existe lanzar CONLFICT)
+
+
 }
