@@ -23,11 +23,14 @@ public class Cliente {
     @Column(nullable = true) //Puede haber gente con unico apellido
     public String apellido_2;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     public String email;
 
     @Column(nullable = false)
     public String telefono;
+
+    @Column(nullable = false)
+    public String password;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     public ArrayList<Cuenta> cuentas= new ArrayList<>();
