@@ -27,6 +27,6 @@ public class ClienteControllerIntegrationTest {
 
     @Test
     public void registroClienteOK() throws Exception{
-        
+
     }
 }

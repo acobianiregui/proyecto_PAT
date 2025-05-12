@@ -8,12 +8,13 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 public class RepositoryIntegrationTest {
@@ -24,6 +25,8 @@ public class RepositoryIntegrationTest {
 
     @Test
     public void guardarTest(){ //Guardaremos un cliente con 2 cuentas
+        cuentasRepository.deleteAll();
+        clientesRepository.deleteAll();
         Cliente cliente= new Cliente();
         Cuenta cuenta1= new Cuenta();
         Cuenta cuenta2= new Cuenta();
@@ -38,6 +41,7 @@ public class RepositoryIntegrationTest {
         cuenta2.setSucursal(Sucursal.MADRID);
         cuenta2.setCliente(cliente);
         //Cliente
+        //cliente.setCliente_id(1L);
         cliente.setNombre("Anton");
         cliente.setDni("12345678Z");
         cliente.setApellido_1("Cobian");
@@ -51,6 +55,7 @@ public class RepositoryIntegrationTest {
 
         //Guardamos
         clientesRepository.save(cliente);
+        System.out.println(cuentasRepository.count());
         cuentasRepository.save(cuenta1);
         cuentasRepository.save(cuenta2);
 
@@ -124,5 +129,20 @@ public class RepositoryIntegrationTest {
         clientesRepository.delete(busqueda);
         assertEquals(0,clientesRepository.count());
         assertEquals(0,cuentasRepository.count());
+    }
+    @Test
+    public void integridadTest(){
+        //Si guardo una cuenta sin cliente se deberia lanzar un error de integridad
+        Cuenta cuenta= new Cuenta();
+        cuenta.setIban(BancoTools.generarIban(Sucursal.MADRID,"0200051332"));
+        cuenta.setSucursal(Sucursal.MADRID);
+        cuenta.setSaldo(400);
+        //No le pongo cliente
+
+
+        assertThrows(DataIntegrityViolationException.class, () -> {
+            cuentasRepository.save(cuenta); // Aquí se lanza la excepción
+        });
+
     }
 }

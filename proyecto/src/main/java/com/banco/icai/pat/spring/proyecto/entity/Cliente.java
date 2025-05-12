@@ -2,6 +2,10 @@ package com.banco.icai.pat.spring.proyecto.entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,27 +14,34 @@ import java.util.List;
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Min(0)
     private long cliente_id;
 
     @Column(nullable = false,unique = true)
+    @NotBlank
     private String dni;
 
     @Column(nullable = false)
+    @NotBlank
     public String nombre;
 
     @Column(nullable = false)
+    @NotBlank
     public String apellido_1;
 
     @Column(nullable = true) //Puede haber gente con unico apellido
     private String apellido_2;
 
     @Column(nullable = false,unique = true)
+    @NotBlank
     public String email;
 
     @Column(nullable = false)
+    @NotBlank
     public String telefono;
 
     @Column(nullable = false)
+    @NotBlank
     public String password;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -90,6 +101,9 @@ public class Cliente {
 
     public void setCuentas(List<Cuenta> cuentas) {
         this.cuentas = cuentas;
+    }
+    public void setCliente_id(long n){
+        this.cliente_id=n;
     }
 
 }
