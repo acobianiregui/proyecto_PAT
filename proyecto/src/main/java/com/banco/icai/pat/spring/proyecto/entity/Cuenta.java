@@ -1,6 +1,7 @@
 package com.banco.icai.pat.spring.proyecto.entity;
 
 import com.banco.icai.pat.spring.proyecto.model.Sucursal;
+import com.banco.icai.pat.spring.proyecto.validacion.ValidIban;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,6 +12,7 @@ public class Cuenta {
     private Long cuenta_id;
 
     @Column(nullable = false,unique = true)
+    @ValidIban
     private String iban;
 
     @Column(nullable = false)

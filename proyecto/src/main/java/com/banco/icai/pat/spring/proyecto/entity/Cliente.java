@@ -102,8 +102,6 @@ public class Cliente {
     public void setCuentas(List<Cuenta> cuentas) {
         this.cuentas = cuentas;
     }
-    public void setCliente_id(long n){
-        this.cliente_id=n;
-    }
+
 
 }
