@@ -19,6 +19,7 @@ public final class BancoTools {
 
 
     public static String generarIban(Sucursal sucursal,String num_cuenta){
+
         StringBuilder num_builder= new StringBuilder(num_cuenta);
         String codigo_sucursal= devolverCodigoSucursal(sucursal);
         String dcc= calcularDC_CCC(codigo_banco,codigo_sucursal,num_cuenta);

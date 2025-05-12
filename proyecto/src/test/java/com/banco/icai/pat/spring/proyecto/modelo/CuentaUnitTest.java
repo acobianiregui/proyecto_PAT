@@ -30,4 +30,19 @@ public class CuentaUnitTest {
 
         assertEquals(0,violations.size());
     }
+    @Test
+    public void ibanIncorrecto(){
+        Cuenta cuenta= new Cuenta();
+        Cliente cliente= new Cliente();
+        cuenta.setIban("ES63 4835 0418 0001 234");
+        cuenta.setSaldo(0);
+        cuenta.setSucursal(Sucursal.MADRID);
+        cuenta.setCliente(cliente);
+
+        Set<ConstraintViolation<Cuenta>> violations= validator.validate(cuenta);
+        assertEquals(1,violations.size());
+        ConstraintViolation<Cuenta> violation= violations.iterator().next();
+        assertEquals("iban",violation.getPropertyPath().toString());
+
+    }
 }
