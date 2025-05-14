@@ -44,7 +44,7 @@ public class RepositoryIntegrationTest {
         //cliente.setCliente_id(1L);
         cliente.setNombre("Anton");
         cliente.setDni("12345678Z");
-        cliente.setApellido_1("Cobian");
+        cliente.setApellido("Cobian");
         cliente.setEmail("pepelarana@gmail.com");
         cliente.setTelefono("640453289");
         cliente.setPassword("Aventura8");
@@ -105,7 +105,7 @@ public class RepositoryIntegrationTest {
         //Cliente
         cliente.setNombre("Anton");
         cliente.setDni("12345678Z");
-        cliente.setApellido_1("Cobian");
+        cliente.setApellido("Cobian");
         cliente.setEmail("pepelarana@gmail.com");
         cliente.setTelefono("640453289");
         cliente.setPassword("Aventura8");

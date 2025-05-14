@@ -61,30 +61,12 @@ public class Cliente {
         this.nombre = nombre;
     }
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    public String getApellido_1() {
-        return apellido;
-    }
-
-    public void setApellido_1(String apellido_1) {
-        this.apellido = apellido_1;
-=======
     public String getApellido() {
         return apellido;
     }
 
-    public void setApellido_1(String apellido) {
+    public void setApellido(String apellido) {
         this.apellido = apellido;
->>>>>>> Stashed changes
-=======
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido_1(String apellido) {
-        this.apellido = apellido;
->>>>>>> Stashed changes
     }
 
     public String getEmail() {
