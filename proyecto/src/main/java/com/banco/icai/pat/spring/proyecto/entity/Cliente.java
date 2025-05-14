@@ -26,11 +26,9 @@ public class Cliente {
     public String nombre;
 
     @Column(nullable = false)
-    @NotBlank
-    public String apellido_1;
 
-    @Column(nullable = true) //Puede haber gente con unico apellido
-    private String apellido_2;
+    public String apellido;
+
 
     @Column(nullable = false,unique = true)
     @NotBlank
