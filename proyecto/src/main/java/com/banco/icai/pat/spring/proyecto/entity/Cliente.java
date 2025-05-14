@@ -62,11 +62,11 @@ public class Cliente {
     }
 
     public String getApellido_1() {
-        return apellido_1;
+        return apellido;
     }
 
     public void setApellido_1(String apellido_1) {
-        this.apellido_1 = apellido_1;
+        this.apellido = apellido_1;
     }
 
     public String getEmail() {
