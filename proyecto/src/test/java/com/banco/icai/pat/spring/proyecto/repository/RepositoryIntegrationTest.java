@@ -72,7 +72,7 @@ public class RepositoryIntegrationTest {
         Cliente busqueda_cl = clientesRepository.findBydni(cliente.getDni()).orElse(null);
         Cuenta bc1= cuentasRepository.findByIban(cuenta1.getIban()).orElse(null);
         Cuenta bc2= cuentasRepository.findByIban(cuenta2.getIban()).orElse(null);
-        Token t1= tokenRepository.findByCliente(cliente).orElse(null);
+        Token t1= tokenRepository.findByCliente(cliente);
 
         //No deben ser null
         assertNotNull(busqueda_cl);
