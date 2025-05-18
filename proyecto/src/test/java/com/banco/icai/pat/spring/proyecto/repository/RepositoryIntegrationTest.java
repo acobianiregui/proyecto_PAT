@@ -96,7 +96,7 @@ public class RepositoryIntegrationTest {
     }
 
     @Test
-    public void borradoCompleto(){ //Al borrar un cliente, se debe borrar to_do lo asociado
+    public void borradoCompleto(){ //Al borrar un cliente, se debe borrar todo lo asociado
         Cliente cliente= new Cliente();
         Cuenta cuenta1= new Cuenta();
         Cuenta cuenta2= new Cuenta();

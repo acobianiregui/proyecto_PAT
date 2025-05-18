@@ -24,4 +24,5 @@ public class PagoUnitTest {
         Set<ConstraintViolation<Pago>> violations = validator.validate(pago);
         assertTrue(violations.isEmpty());
     }
+
 }

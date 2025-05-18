@@ -85,4 +85,5 @@ class ProyectoApplicationTests {
 		// Verificar si contiene el id
 		Assertions.assertTrue(sessionCookie.contains("session="), "La cookie debe contener 'session='");
 	}
+
 }
