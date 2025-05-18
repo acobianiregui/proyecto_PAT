@@ -38,7 +38,7 @@ public class ClienteController {
         }
     }
 
-    @PostMapping("/api/users/me/session")
+    @PostMapping("/api/royale/users")
     public ResponseEntity<Void> login(@Valid @RequestBody LoginRequest credentials) {
         Token token = clienteService.login(credentials.email(), credentials.password());
         if (token == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
@@ -51,23 +51,14 @@ public class ClienteController {
         return ResponseEntity.status(HttpStatus.CREATED).header(HttpHeaders.SET_COOKIE, session.toString()).build();
     }
 
-<<<<<<< Updated upstream
-=======
     @PostMapping("/api/royale/transferencia")
     public ResponseEntity<Void> transferencia(@Valid @RequestBody TransferenciaRequest transferencia) {
-
         try{
             clienteService.realizar_transferencia(transferencia);
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }catch (DataIntegrityViolationException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(), e);
         }
-
     }
-
-
-
-
->>>>>>> Stashed changes
 }
 

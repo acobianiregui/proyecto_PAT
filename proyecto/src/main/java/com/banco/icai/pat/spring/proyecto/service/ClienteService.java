@@ -32,8 +32,7 @@ public class ClienteService {
         if(cliente.get().password.equals(password)) {
             Cliente cliente1=cliente.get();
             Token token = tokenRepository.findByCliente(cliente1);
-            if (token == null) return token;
-
+            if (token != null) return token;
             token = new Token();
             token.setCliente(cliente1);
             return tokenRepository.save(token);
@@ -43,6 +42,7 @@ public class ClienteService {
 
     public ClientResponse profile(Cliente cliente) {
         if (cliente == null) return null;
+        clientesRepository.save(cliente);
         ClientResponse clientResponse = new ClientResponse(cliente.email, cliente.nombre, cliente.cuentas);
         return clientResponse;
     }
@@ -54,6 +54,7 @@ public class ClienteService {
         cliente.email = register.email();
         cliente.telefono = register.telefono();
         cliente.password = register.password();
+        cliente.setDni(register.dni());
         return profile(cliente);
     }
     public void realizar_transferencia(TransferenciaRequest transferencia) {
