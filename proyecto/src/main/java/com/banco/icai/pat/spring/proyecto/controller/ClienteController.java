@@ -25,9 +25,10 @@ public class ClienteController {
 
     @PostMapping("/api/royale")
     @ResponseStatus(HttpStatus.CREATED)
-    public ClientResponse register(@Valid @RequestBody RegisterRequest register) {
+    public ResponseEntity<ClientResponse> register(@Valid @RequestBody RegisterRequest register) {
         try {
-            return clienteService.profile(register);
+            ClientResponse response = clienteService.profile(register);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (DataIntegrityViolationException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(), e);
         }
@@ -46,5 +47,5 @@ public class ClienteController {
         return ResponseEntity.status(HttpStatus.CREATED).header(HttpHeaders.SET_COOKIE, session.toString()).build();
     }
 
-
 }
+
