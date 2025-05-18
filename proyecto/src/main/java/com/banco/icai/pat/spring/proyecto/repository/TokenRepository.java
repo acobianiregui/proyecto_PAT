@@ -7,5 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 
 public interface TokenRepository extends CrudRepository<Token,Long> {
-    Optional<Token> findByCliente(Cliente cliente);
+    Token findByCliente(Cliente cliente);
 }
