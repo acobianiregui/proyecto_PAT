@@ -4,6 +4,7 @@ import com.banco.icai.pat.spring.proyecto.entity.Cliente;
 import com.banco.icai.pat.spring.proyecto.entity.Cuenta;
 import com.banco.icai.pat.spring.proyecto.entity.Pago;
 import com.banco.icai.pat.spring.proyecto.entity.Token;
+
 import com.banco.icai.pat.spring.proyecto.model.*;
 import com.banco.icai.pat.spring.proyecto.repository.ClientesRepository;
 import com.banco.icai.pat.spring.proyecto.repository.CuentasRepository;
@@ -11,6 +12,7 @@ import com.banco.icai.pat.spring.proyecto.repository.PagosRepository;
 import com.banco.icai.pat.spring.proyecto.repository.TokenRepository;
 import com.banco.icai.pat.spring.proyecto.util.BancoTools;
 import jakarta.servlet.ServletConfig;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -25,11 +27,13 @@ public class ClienteService {
     @Autowired
     CuentasRepository cuentasRepository;
     @Autowired
-    TokenRepository tokenRepository;;
+
+    TokenRepository tokenRepository;
     @Autowired
     private ServletConfig servletConfig;
     @Autowired
     private PagosRepository pagosRepository;
+
 
     public Token login(String email, String password) {
         Optional<Cliente> cliente = clientesRepository.findByEmail(email);
@@ -37,7 +41,8 @@ public class ClienteService {
         if(cliente.get().password.equals(password)) {
             Cliente cliente1=cliente.get();
             Token token = tokenRepository.findByCliente(cliente1);
-            if (token == null) return token;
+
+            if (token != null) return token;
 
             token = new Token();
             token.setCliente(cliente1);
@@ -48,6 +53,7 @@ public class ClienteService {
 
     public ClientResponse profile(Cliente cliente) {
         if (cliente == null) return null;
+        clientesRepository.save(cliente);
         ClientResponse clientResponse = new ClientResponse(cliente.email, cliente.nombre, cliente.cuentas);
         return clientResponse;
     }
@@ -59,8 +65,31 @@ public class ClienteService {
         cliente.email = register.email();
         cliente.telefono = register.telefono();
         cliente.password = register.password();
+        cliente.setDni(register.dni());
         return profile(cliente);
     }
+    public void realizar_transferencia(TransferenciaRequest transferencia) {
+        Cuenta origen = cuentasRepository.findByIban(transferencia.iban_cuenta_origen()).orElse(null);
+        if(origen == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cuenta origen no encontrada");
+        }
+        Cuenta destino = cuentasRepository.findByIban(transferencia.iban_cuenta_destino()).orElse(null);
+        if(destino == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cuenta destino no encontrada");
+        }
+        if(origen.getSaldo() < transferencia.importe()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Saldo insuficiente");
+        }
+        //Si llegamos aqui todo OK
+        origen.setSaldo(origen.getSaldo()-transferencia.importe());
+        destino.setSaldo(destino.getSaldo()+transferencia.importe());
+        cuentasRepository.save(origen);
+        cuentasRepository.save(destino);
+
+    }
+
+
+
 
 
     public Cliente authentication(String tokenId) {

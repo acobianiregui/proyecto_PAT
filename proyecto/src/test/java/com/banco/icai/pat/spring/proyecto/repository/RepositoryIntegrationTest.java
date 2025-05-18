@@ -72,7 +72,7 @@ public class RepositoryIntegrationTest {
         Cliente busqueda_cl = clientesRepository.findBydni(cliente.getDni()).orElse(null);
         Cuenta bc1= cuentasRepository.findByIban(cuenta1.getIban()).orElse(null);
         Cuenta bc2= cuentasRepository.findByIban(cuenta2.getIban()).orElse(null);
-        Token t1= tokenRepository.findByCliente(cliente).orElse(null);
+        Token t1= tokenRepository.findByCliente(cliente);
 
         //No deben ser null
         assertNotNull(busqueda_cl);
@@ -96,7 +96,7 @@ public class RepositoryIntegrationTest {
     }
 
     @Test
-    public void borradoCompleto(){ //Al borrar un cliente, se debe borrar to_do lo asociado
+    public void borradoCompleto(){ //Al borrar un cliente, se debe borrar todo lo asociado
         Cliente cliente= new Cliente();
         Cuenta cuenta1= new Cuenta();
         Cuenta cuenta2= new Cuenta();

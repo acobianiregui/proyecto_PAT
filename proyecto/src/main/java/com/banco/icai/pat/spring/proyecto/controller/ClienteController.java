@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.management.StringValueExp;
+
 @RestController
 public class ClienteController {
     @Autowired
@@ -30,9 +32,9 @@ public class ClienteController {
         }
     }
 
-    @PostMapping("/api/users/me/session")
+    @PostMapping("/api/royale/users")
     public ResponseEntity<Void> login(@Valid @RequestBody LoginRequest credentials) {
-        Token token= clienteService.login(credentials.email(), credentials.password());
+        Token token = clienteService.login(credentials.email(), credentials.password());
         if (token == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         ResponseCookie session = ResponseCookie
                 .from("session", String.valueOf(token.getId()))
@@ -88,6 +90,15 @@ public class ClienteController {
     }
 
 
+    @PostMapping("/api/royale/transferencia")
+    public ResponseEntity<Void> transferencia(@Valid @RequestBody TransferenciaRequest transferencia) {
+        try{
+            clienteService.realizar_transferencia(transferencia);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }catch (DataIntegrityViolationException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(), e);
+        }
+    }
 
 }
 

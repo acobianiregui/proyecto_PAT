@@ -1,8 +1,10 @@
 package com.banco.icai.pat.spring.proyecto.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-
+@Entity
+@Table(name = "pago")
 public class Pago {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
@@ -13,14 +15,17 @@ public class Pago {
     private String tipo;
 
     @Column(nullable = false)
+    @NotNull
     private int importe;
 
-    @JoinColumn(name = "cuenta_id", nullable = false)
+    @JoinColumn(name = "cuenta_origen_id", nullable = false)
     @ManyToOne
+    @NotNull
     private Cuenta cuenta_origen;
 
-    @JoinColumn(name = "cuenta_id", nullable = false)
+    @JoinColumn(name = "cuenta_destino_id", nullable = false)
     @ManyToOne
+    @NotNull
     private Cuenta cuenta_destino;
 
     public long getId() {

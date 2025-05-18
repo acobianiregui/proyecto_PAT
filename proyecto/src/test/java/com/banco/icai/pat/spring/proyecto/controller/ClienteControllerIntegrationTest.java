@@ -6,11 +6,13 @@ import com.banco.icai.pat.spring.proyecto.model.ClientResponse;
 import com.banco.icai.pat.spring.proyecto.model.RegisterRequest;
 import com.banco.icai.pat.spring.proyecto.service.ClienteService;
 import org.aspectj.lang.annotation.Before;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -61,5 +63,29 @@ public class ClienteControllerIntegrationTest {
                         "\"nombre\":\"" + NOMBRE + "\"," +
                         "\"cuentas\":" + CUENTAS + "}"));
     }
-
+    @Test void registerInvalidPassword() throws Exception {
+        // Given ...
+        String request = "{" +
+                "\"email\":\"" + EMAIL + "\"," +
+                "\"password\":\"aaaaaa\"}"; //Falta numero
+        // When ...
+        this.mockMvc
+                .perform(MockMvcRequestBuilders.post("/api/royale")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request))
+                // Then ...
+                .andExpect(MockMvcResultMatchers.status().isBadRequest()); //BadRequest tiene que dar
+    }
+    @Test void loginInexistente() throws Exception {
+        //No se ha registrado nadie todavia
+        String request = "{" +
+                "\"email\":\"" + EMAIL + "\"," +
+                "\"password\":\"" + PASSWORD + "\"}";
+        this.mockMvc
+                .perform(MockMvcRequestBuilders.post("/api/royale/users")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request))
+        //No autorizado si no existe
+                .andExpect(MockMvcResultMatchers.status().isUnauthorized());
+    }
 }
