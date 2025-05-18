@@ -47,5 +47,5 @@ public class ClienteController {
         return ResponseEntity.status(HttpStatus.CREATED).header(HttpHeaders.SET_COOKIE, session.toString()).build();
     }
 
-
 }
+
