@@ -32,7 +32,9 @@ public class ClienteService {
         if(cliente.get().password.equals(password)) {
             Cliente cliente1=cliente.get();
             Token token = tokenRepository.findByCliente(cliente1);
+
             if (token != null) return token;
+
             token = new Token();
             token.setCliente(cliente1);
             return tokenRepository.save(token);
