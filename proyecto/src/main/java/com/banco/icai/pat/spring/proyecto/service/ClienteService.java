@@ -68,15 +68,27 @@ public class ClienteService {
         cliente.setDni(register.dni());
         return profile(cliente);
     }
-    public void realizar_transferencia(TransferenciaRequest transferencia) {
-        Cuenta origen = cuentasRepository.findByIban(transferencia.iban_cuenta_origen()).orElse(null);
-        if(origen == null){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cuenta origen no encontrada");
+    public void realizar_transferencia(TransferenciaRequest transferencia, String tokenId) {
+        Optional<Token> token= tokenRepository.findById(Long.valueOf(Long.parseLong(tokenId)));
+        if(token.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"No existe el token");}
+        Cliente cliente=clientesRepository.findByEmail(token.get().getCliente().getEmail()).orElse(null);
+        if(cliente == null){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"No existe el cliente");
         }
+
         Cuenta destino = cuentasRepository.findByIban(transferencia.iban_cuenta_destino()).orElse(null);
         if(destino == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cuenta destino no encontrada");
         }
+        Cuenta origen = cuentasRepository.findByIban(transferencia.iban_cuenta_origen()).orElse(null);
+        if (origen == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cuenta origen no encontrada");
+        }
+        if(!origen.getCliente().getEmail().equals(cliente.getEmail())){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "No tienes permiso para acceder a esta cuenta");
+        }
+
         if(origen.getSaldo() < transferencia.importe()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Saldo insuficiente");
         }
@@ -127,7 +139,8 @@ public class ClienteService {
         }
     }
 
-    public void hacerBizum(BizumRequest bizumRequest) {
+    public void hacerBizum(BizumRequest bizumRequest, String tokenId) {
+        Cliente cliente_orig=authentication(tokenId);
         Optional<Cliente> cliente0=clientesRepository.findByTelefono(bizumRequest.telefono_destino());
         if(cliente0.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No existe el cliente destino");
@@ -136,6 +149,10 @@ public class ClienteService {
         Optional<Cuenta> cuenta0=cuentasRepository.findByIban(bizumRequest.iban_origen());
         if(cuenta0.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No existe la cuenta origen");
+        }
+        //IMPORTANTE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        if(!cuenta0.get().getCliente().getEmail().equals(cliente_orig.getEmail())){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"No tienes permiso para acceder a esta cuenta");
         }
         Cuenta cuenta=cuenta0.get();
         if(cuenta.getSaldo()<bizumRequest.importe()){
@@ -153,6 +170,36 @@ public class ClienteService {
         pago.setImporte(bizumRequest.importe());
         pago.setTipo("bizum");
         pagosRepository.save(pago);
+    }
+    public void modificarSaldo(SaldoModRequest operacion, String tokenid){
+        Optional<Token> token= tokenRepository.findById(Long.valueOf(tokenid));
+        if(token.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"No existe el token");}
+        Optional<Cliente> cliente0=clientesRepository.findByEmail(token.get().getCliente().getEmail());
+        if(cliente0.isPresent()){
+            Optional<Cuenta> cuenta0=cuentasRepository.findByIban(operacion.iban());
+            if(cuenta0.isPresent()){
+                Cuenta cuenta=cuenta0.get();
+                if(!cuenta.getCliente().getEmail().equals(cliente0.get().getEmail())){
+                    throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"No tienes permiso para acceder a esta cuenta");
+                }
+                if(operacion.tipoOperacion().equals("ingreso")){
+                    cuenta.setSaldo(cuenta.getSaldo()+operacion.importe());
+                }else if (operacion.tipoOperacion().equals("retirada")){
+                    if(cuenta.getSaldo()<operacion.importe()){
+                        throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"No hay suficiente saldo saldo");
+                    }
+                    cuenta.setSaldo(cuenta.getSaldo()-operacion.importe());
+                }else{
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Tipo de operacion no valido");
+                }
+                cuentasRepository.save(cuenta);
+            }else{
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No existe la cuenta");
+            }
+        }else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No existe el cliente");
+        }
     }
 
 

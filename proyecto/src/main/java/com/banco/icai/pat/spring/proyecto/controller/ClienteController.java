@@ -75,9 +75,10 @@ public class ClienteController {
     }
 
     @PostMapping("/api/royale/bizum")
-    public ResponseEntity<Void> hacerBizum(@Valid @RequestBody BizumRequest bizumRequest){
+    public ResponseEntity<Void> hacerBizum(@Valid @RequestBody BizumRequest bizumRequest,
+                                           @CookieValue(value = "session", required = true) String session){
         try {
-            clienteService.hacerBizum(bizumRequest);
+            clienteService.hacerBizum(bizumRequest,session);
             return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (DataIntegrityViolationException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(), e);
@@ -94,11 +95,23 @@ public class ClienteController {
 
 
     @PostMapping("/api/royale/transferencia")
-    public ResponseEntity<Void> transferencia(@Valid @RequestBody TransferenciaRequest transferencia) {
+    public ResponseEntity<Void> transferencia(@Valid @RequestBody TransferenciaRequest transferencia,
+                                              @CookieValue(value = "session", required = true) String session) {
         try{
-            clienteService.realizar_transferencia(transferencia);
+            clienteService.realizar_transferencia(transferencia,session);
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }catch (DataIntegrityViolationException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(), e);
+        }
+    }
+
+    @PutMapping("/api/royale/cuenta/saldo")
+    public ResponseEntity<Void> modificarSaldo(@Valid @RequestBody SaldoModRequest modificarSaldo,
+                                               @CookieValue(value = "session", required = true) String session) {
+        try {
+            clienteService.modificarSaldo(modificarSaldo,session);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } catch (DataIntegrityViolationException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(), e);
         }
     }
