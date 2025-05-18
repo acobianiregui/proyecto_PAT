@@ -107,8 +107,12 @@ public class ClienteService {
         }
     }
 
-    public void crearCuenta(CrearCuenta crearCuenta) {
-        Optional<Cliente> cliente0=clientesRepository.findByEmail(crearCuenta.cliente().email);
+    public void crearCuenta(CrearCuenta crearCuenta, String tokenId) {
+        Optional<Token> token= tokenRepository.findById(Long.valueOf(Long.parseLong(tokenId)));
+        if(token.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"No existe el token");}
+
+        Optional<Cliente> cliente0=clientesRepository.findByEmail(token.get().getCliente().getEmail());
         if(cliente0.isPresent()){
             if(cuentasRepository.findByIban(crearCuenta.numeroCuenta()).isPresent()){
                 throw new ResponseStatusException(HttpStatus.CONFLICT,"Numero de cuenta ya usado");

@@ -78,12 +78,52 @@ class ProyectoApplicationTests {
 		Assertions.assertEquals(HttpStatus.CREATED, loginResponse.getStatusCode());
 
 
-		// Verificar que devuelve la cookie
+		//La cookie se devuelve bien?
 		String sessionCookie = loginResponse.getHeaders().getFirst(HttpHeaders.SET_COOKIE);
 		Assertions.assertNotNull(sessionCookie, "La cookie de sesión debe estar presente.");
 
-		// Verificar si contiene el id
+		//Verificar q tiene "session="
 		Assertions.assertTrue(sessionCookie.contains("session="), "La cookie debe contener 'session='");
+	}
+	@Test
+	public void crearCuentaOK(){
+		//Primero login
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		//Ahora hacer el login y comprobar que este bien
+		String login = "{" +
+				"\"email\":\"" + EMAIL + "\"," +
+				"\"password\":\"" + PASSWORD + "\"}";
+
+		ResponseEntity<String> loginResponse = client.exchange(
+				"http://localhost:8080/api/royale/users",
+				HttpMethod.POST, new HttpEntity<>(login, headers), String.class);
+		Assertions.assertEquals(HttpStatus.CREATED, loginResponse.getStatusCode());
+
+		List<String> cookies = loginResponse.getHeaders().get("Set-Cookie");
+		String sessionCookie = cookies.stream()
+				.filter(c -> c.startsWith("session="))
+				.findFirst()
+				.orElseThrow(() -> new RuntimeException("No session cookie found"))
+				.split(";")[0];  // "session=1"
+
+		//Ahora crear la cuenta
+		HttpHeaders cuentaHeaders = new HttpHeaders();
+		cuentaHeaders.setContentType(MediaType.APPLICATION_JSON);
+		cuentaHeaders.add("Cookie", sessionCookie); // <- Aquí reutilizas la cookie
+
+		String nuevaCuenta = "{" +
+				"\"numeroCuenta\":\"1234567899\"," +
+				"\"sucursal\":\"MADRID\"" +
+				"}";
+
+		HttpEntity<String> cuentaRequest = new HttpEntity<>(nuevaCuenta, cuentaHeaders);
+
+		ResponseEntity<String> cuentaResponse = client.exchange(
+				"http://localhost:8080/api/royale/cuentas",
+				HttpMethod.POST, cuentaRequest, String.class);
+
+		Assertions.assertEquals(HttpStatus.CREATED, cuentaResponse.getStatusCode());
 	}
 
 }

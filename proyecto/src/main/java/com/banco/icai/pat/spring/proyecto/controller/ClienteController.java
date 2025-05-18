@@ -46,9 +46,12 @@ public class ClienteController {
     }
 
     @PostMapping("/api/royale/cuentas")
-    public ResponseEntity<Void> crearCuenta(@Valid @RequestBody CrearCuenta crearCuenta) {
+    public ResponseEntity<Void> crearCuenta(@Valid @RequestBody CrearCuenta crearCuenta,
+                                            @CookieValue(value = "session", required = true) String session) {
+        Cliente cliente= clienteService.authentication(session);
+        if (cliente == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         try {
-            clienteService.crearCuenta(crearCuenta);
+            clienteService.crearCuenta(crearCuenta,session);
             return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (DataIntegrityViolationException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(), e);
