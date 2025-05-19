@@ -11,8 +11,8 @@ RUN mvn dependency:go-offline -B
 #Codigo fuente
 COPY src ./src
 
-#Construir el jar (PROBANDO LOS TESTS)
-RUN mvn clean package 
+#Construir el jar (me salto los tests que ya se han hecho en ci)
+RUN mvn clean package -DskipTests
 
 #Ejecucion
 FROM eclipse-temurin:17-jre-jammy
