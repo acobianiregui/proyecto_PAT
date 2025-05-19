@@ -1,6 +1,7 @@
 package com.banco.icai.pat.spring.proyecto.controller;
 
 import com.banco.icai.pat.spring.proyecto.entity.Cliente;
+import com.banco.icai.pat.spring.proyecto.entity.Pago;
 import com.banco.icai.pat.spring.proyecto.entity.Token;
 import com.banco.icai.pat.spring.proyecto.model.*;
 import com.banco.icai.pat.spring.proyecto.service.ClienteService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.management.StringValueExp;
+import java.util.List;
 
 @RestController
 public class ClienteController {
@@ -121,6 +123,24 @@ public class ClienteController {
         try {
             clienteService.realizarCompra(compra,session);
             return ResponseEntity.status(HttpStatus.OK).build();
+        } catch (DataIntegrityViolationException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(), e);
+        }
+    }
+    @GetMapping("/api/royale/cuentas/operaciones/{iban}")
+    public ResponseEntity<List<Pago>> getOperaciones(@CookieValue(value = "session", required = true) String session, @PathVariable String iban) {
+        Cliente cliente = clienteService.authentication(session);
+        if (cliente == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        List<Pago> response = clienteService.listarOperaciones(session,iban);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+    @DeleteMapping("/api/royale/cuentas/{iban}")
+    public ResponseEntity<Void> eliminarCuenta(@CookieValue(value = "session", required = true) String session, @PathVariable String iban) {
+        Cliente cliente = clienteService.authentication(session);
+        if (cliente == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        try {
+            clienteService.eliminarCuenta(session,iban);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (DataIntegrityViolationException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(), e);
         }

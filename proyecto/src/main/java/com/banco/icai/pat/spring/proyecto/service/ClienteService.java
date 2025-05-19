@@ -18,6 +18,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -102,11 +104,12 @@ public class ClienteService {
         pago.setCuenta_destino(destino);
         pago.setImporte(transferencia.importe());
         pago.setTipo("transferencia");
+        pago.setConcepto("Transferencia a "+destino.getCliente().getNombre());
         pagosRepository.save(pago);
 
     }
 
-    
+
 
 
     public Cliente authentication(String tokenId) {
@@ -175,6 +178,7 @@ public class ClienteService {
         pago.setCuenta_destino(cuenta_destino);
         pago.setImporte(bizumRequest.importe());
         pago.setTipo("bizum");
+        pago.setConcepto("Bizum a "+cliente.getNombre());
         pagosRepository.save(pago);
     }
     public void realizarCompra(CompraRequest compraRequest,String tokenid){
@@ -195,6 +199,12 @@ public class ClienteService {
                 cuenta.setSaldo(cuenta.getSaldo()-compraRequest.importe());
                 cuentasRepository.save(cuenta);
                 //GUARDAR LA COMPRA AQUIIIIIIIIIIIIIIIIIIIIIIIII
+                Pago pago= new Pago();
+                pago.setCuenta_origen(cuenta);
+                pago.setImporte(compraRequest.importe());
+                pago.setTipo("compra");
+                pago.setConcepto("Compra de "+compraRequest.articulo());
+                pagosRepository.save(pago);
 
             }else{
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No existe la cuenta");
@@ -234,6 +244,72 @@ public class ClienteService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No existe el cliente");
         }
     }
+    public void eliminarCuenta(String iban, String tokenid){
+        Optional<Token> token= tokenRepository.findById(Long.valueOf(tokenid));
+        if(token.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"No existe el token");}
+        Optional<Cliente> cliente0=clientesRepository.findByEmail(token.get().getCliente().getEmail());
+        if(cliente0.isPresent()){
+            Optional<Cuenta> cuenta0=cuentasRepository.findByIban(iban);
+            if(cuenta0.isPresent()){
+                Cuenta cuenta=cuenta0.get();
+                if(!cuenta.getCliente().getEmail().equals(cliente0.get().getEmail())){
+                    throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"No tienes permiso para acceder a esta cuenta");
+                }
+                cuentasRepository.delete(cuenta);
+            }else{
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No existe la cuenta");
+            }
+        }else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No existe el cliente");
+        }
+    }
+    public void eliminarCliente(String tokenid){
+        Optional<Token> token= tokenRepository.findById(Long.valueOf(tokenid));
+        if(token.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"No existe el token");}
+        Optional<Cliente> cliente0=clientesRepository.findByEmail(token.get().getCliente().getEmail());
+        if(cliente0.isPresent()){
+            Cliente cliente=cliente0.get();
+            clientesRepository.delete(cliente);
+        }else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No existe el cliente");
+        }
+    }
+    public List<Pago> listarOperaciones(String tokenid, String iban) {
+        Optional<Token> tokenOpt = tokenRepository.findById(Long.valueOf(tokenid));
+        if (tokenOpt.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "No existe el token");
+        }
+
+        Cliente cliente = tokenOpt.get().getCliente();
+
+        Optional<Cuenta> cuentaOpt = cuentasRepository.findByIban(iban);
+        if (cuentaOpt.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No existe la cuenta");
+        }
+
+        Cuenta cuenta = cuentaOpt.get();
+        if (!cuenta.getCliente().getEmail().equals(cliente.getEmail())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "No tienes permiso para acceder a esta cuenta");
+        }
+
+        List<Pago> pagosOrigen = pagosRepository.findByCuenta_Origen(cuenta);
+        List<Pago> pagosDestino = pagosRepository.findByCuenta_Destino(cuenta);
+
+        // Asegurarse de que no sean null
+        if (pagosOrigen == null) pagosOrigen = new ArrayList<>();
+        if (pagosDestino == null) pagosDestino = new ArrayList<>();
+
+        List<Pago> todosLosPagos = new ArrayList<>(pagosOrigen);
+        todosLosPagos.addAll(pagosDestino);
+
+        return todosLosPagos;
+    }
+
+
+
+
 
 
 }

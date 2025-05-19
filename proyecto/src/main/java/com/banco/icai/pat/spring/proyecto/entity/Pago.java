@@ -23,9 +23,13 @@ public class Pago {
     @NotNull
     private Cuenta cuenta_origen;
 
-    @JoinColumn(name = "cuenta_destino_id", nullable = false)
+    @JoinColumn(name = "cuenta_destino_id")
     @ManyToOne
     private Cuenta cuenta_destino;
+
+    @Column(nullable = false)
+    @NotNull
+    private String concepto;
 
     public long getId() {
         return id;
@@ -57,6 +61,11 @@ public class Pago {
     public void setCuenta_destino(Cuenta cuenta_destino) {
         this.cuenta_destino = cuenta_destino;
     }
-
+    public String getConcepto() {
+        return concepto;
+    }
+    public void setConcepto(String concepto) {
+        this.concepto = concepto;
+    }
 
 }
