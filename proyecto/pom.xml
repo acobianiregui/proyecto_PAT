@@ -11,8 +11,8 @@
 	<groupId>edu.comillas.icai.gitt.pat.spring</groupId>
 	<artifactId>p5</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>p5</name>
-	<description>P5</description>
+	<name>Royale</name>
+	<description>Royale</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
