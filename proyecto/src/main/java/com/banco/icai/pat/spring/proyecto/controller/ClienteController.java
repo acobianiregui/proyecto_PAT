@@ -138,13 +138,10 @@ public class ClienteController {
     public ResponseEntity<Void> eliminarCuenta(@CookieValue(value = "session", required = true) String session, @PathVariable String iban) {
         Cliente cliente = clienteService.authentication(session);
         if (cliente == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
-        try {
-            clienteService.eliminarCuenta(session,iban);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        } catch (DataIntegrityViolationException e) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(), e);
-        }
+        clienteService.eliminarCuenta(session, iban);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
 
 }
 
