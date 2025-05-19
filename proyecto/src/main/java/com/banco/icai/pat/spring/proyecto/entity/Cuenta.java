@@ -2,6 +2,7 @@ package com.banco.icai.pat.spring.proyecto.entity;
 
 import com.banco.icai.pat.spring.proyecto.model.Sucursal;
 import com.banco.icai.pat.spring.proyecto.validacion.ValidIban;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -24,6 +25,7 @@ public class Cuenta {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
+    @JsonIgnore
     private Cliente cliente;
 
     public String getIban() {
