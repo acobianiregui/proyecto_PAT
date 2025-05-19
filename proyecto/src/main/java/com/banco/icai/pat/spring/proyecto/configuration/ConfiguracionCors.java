@@ -11,7 +11,7 @@ public class ConfiguracionCors implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("", "http://localhost:8080", "https://royale-1wd7.onrender.com")
+                .allowedOrigins("http://localhost:8080", "https://royale-1wd7.onrender.com")
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("*");
     }
