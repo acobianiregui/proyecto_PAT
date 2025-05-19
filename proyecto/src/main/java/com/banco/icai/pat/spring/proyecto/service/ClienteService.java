@@ -16,6 +16,7 @@ import jakarta.servlet.ServletConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -70,6 +71,7 @@ public class ClienteService {
         cliente.setDni(register.dni());
         return profile(cliente);
     }
+    @Transactional
     public void realizar_transferencia(TransferenciaRequest transferencia, String tokenId) {
         Optional<Token> token= tokenRepository.findById(Long.valueOf(Long.parseLong(tokenId)));
         if(token.isEmpty()){
@@ -147,7 +149,7 @@ public class ClienteService {
             clientesRepository.save(cliente);
         }
     }
-
+    @Transactional
     public void hacerBizum(BizumRequest bizumRequest, String tokenId) {
         Cliente cliente_orig=authentication(tokenId);
         Optional<Cliente> cliente0=clientesRepository.findByTelefono(bizumRequest.telefono_destino());
@@ -181,6 +183,7 @@ public class ClienteService {
         pago.setConcepto("Bizum a "+cliente.getNombre());
         pagosRepository.save(pago);
     }
+    @Transactional
     public void realizarCompra(CompraRequest compraRequest,String tokenid){
         Optional<Token> token= tokenRepository.findById(Long.valueOf(tokenid));
         if(token.isEmpty()){
@@ -294,8 +297,8 @@ public class ClienteService {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "No tienes permiso para acceder a esta cuenta");
         }
 
-        List<Pago> pagosOrigen = pagosRepository.findByCuenta_Origen(cuenta);
-        List<Pago> pagosDestino = pagosRepository.findByCuenta_Destino(cuenta);
+        List<Pago> pagosOrigen = pagosRepository.findByCuentaOrigen(cuenta);
+        List<Pago> pagosDestino = pagosRepository.findByCuentaDestino(cuenta);
 
         // Asegurarse de que no sean null
         if (pagosOrigen == null) pagosOrigen = new ArrayList<>();

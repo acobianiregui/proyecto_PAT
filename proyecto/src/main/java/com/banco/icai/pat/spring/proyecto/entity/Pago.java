@@ -15,20 +15,20 @@ public class Pago {
     private String tipo;
 
     @Column(nullable = false)
-    @NotNull
-    private int importe;
+
+    private double importe;
 
     @JoinColumn(name = "cuenta_origen_id", nullable = false)
     @ManyToOne
-    @NotNull
-    private Cuenta cuenta_origen;
+
+    private Cuenta cuentaOrigen;
 
     @JoinColumn(name = "cuenta_destino_id")
     @ManyToOne
-    private Cuenta cuenta_destino;
+    private Cuenta cuentaDestino;
 
     @Column(nullable = false)
-    @NotNull
+
     private String concepto;
 
     public long getId() {
@@ -43,23 +43,23 @@ public class Pago {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-    public int getImporte() {
+    public double getImporte() {
         return importe;
     }
-    public void setImporte(int importe) {
+    public void setImporte(double importe) {
         this.importe = importe;
     }
     public Cuenta getCuenta_origen() {
-        return cuenta_origen;
+        return cuentaOrigen;
     }
     public void setCuenta_origen(Cuenta cuenta_origen) {
-        this.cuenta_origen = cuenta_origen;
+        this.cuentaOrigen = cuenta_origen;
     }
     public Cuenta getCuenta_destino() {
-        return cuenta_destino;
+        return cuentaDestino;
     }
     public void setCuenta_destino(Cuenta cuenta_destino) {
-        this.cuenta_destino = cuenta_destino;
+        this.cuentaDestino = cuenta_destino;
     }
     public String getConcepto() {
         return concepto;

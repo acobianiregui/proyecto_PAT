@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface PagosRepository extends CrudRepository<Pago,Long> {
-    List<Pago> findByCuenta_Origen(Cuenta cuenta);
+    List<Pago> findByCuentaOrigen(Cuenta cuenta);
 
-    List<Pago> findByCuenta_Destino(Cuenta cuenta);
+    List<Pago> findByCuentaDestino(Cuenta cuenta);
 }
