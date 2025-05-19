@@ -99,7 +99,7 @@ public class ClienteController {
                                               @CookieValue(value = "session", required = true) String session) {
         try{
             clienteService.realizar_transferencia(transferencia,session);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+            return ResponseEntity.status(HttpStatus.OK).build();
         }catch (DataIntegrityViolationException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(), e);
         }
@@ -110,6 +110,16 @@ public class ClienteController {
                                                @CookieValue(value = "session", required = true) String session) {
         try {
             clienteService.modificarSaldo(modificarSaldo,session);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } catch (DataIntegrityViolationException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(), e);
+        }
+    }
+    @PostMapping("/api/royale/compra")
+    public ResponseEntity<Void> compra(@Valid @RequestBody CompraRequest compra,
+                                       @CookieValue(value = "session", required = true) String session) {
+        try {
+            clienteService.realizarCompra(compra,session);
             return ResponseEntity.status(HttpStatus.OK).build();
         } catch (DataIntegrityViolationException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage(), e);

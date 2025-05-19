@@ -1,6 +1,9 @@
 package com.banco.icai.pat.spring.proyecto;
 
 import com.banco.icai.pat.spring.proyecto.entity.Cuenta;
+import com.banco.icai.pat.spring.proyecto.model.Sucursal;
+import com.banco.icai.pat.spring.proyecto.util.BancoTools;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,10 +32,11 @@ class ProyectoApplicationTests {
 	private final String TELEFONO  ="666666666";
 	private final List<Cuenta> CUENTAS = new ArrayList<>();
 
+	HttpHeaders headers2;
 	@Autowired
 	private TestRestTemplate client;
 	@BeforeEach
-	public void antesTest(){
+	public void antesTest() {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		String registro = "{" +
@@ -45,7 +49,9 @@ class ProyectoApplicationTests {
 		ResponseEntity<String> response = client.exchange(
 				"http://localhost:8080/api/royale",
 				HttpMethod.POST, new HttpEntity<>(registro, headers), String.class);
+
 	}
+
 	@Test
 	public void registroDuplicado() {
 		HttpHeaders headers = new HttpHeaders();
@@ -84,6 +90,43 @@ class ProyectoApplicationTests {
 
 		//Verificar q tiene "session="
 		Assertions.assertTrue(sessionCookie.contains("session="), "La cookie debe contener 'session='");
+	}
+	@Test
+	public void getInfoClienteOK(){
+		//Primero login
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		//Ahora hacer el login y comprobar que este bien
+		String login = "{" +
+				"\"email\":\"" + EMAIL + "\"," +
+				"\"password\":\"" + PASSWORD + "\"}";
+
+		ResponseEntity<String> loginResponse = client.exchange(
+				"http://localhost:8080/api/royale/users",
+				HttpMethod.POST, new HttpEntity<>(login, headers), String.class);
+		Assertions.assertEquals(HttpStatus.CREATED, loginResponse.getStatusCode());
+
+		List<String> cookies = loginResponse.getHeaders().get("Set-Cookie");
+		String sessionCookie = cookies.stream()
+				.filter(c -> c.startsWith("session="))
+				.findFirst()
+				.orElseThrow(() -> new RuntimeException("No session cookie found"))
+				.split(";")[0];  // "session=1"
+
+		headers.add("Cookie", sessionCookie);
+
+		ResponseEntity<String> infoResponse = client.exchange(
+				"http://localhost:8080/api/royale",
+				HttpMethod.GET, new HttpEntity<>(null, headers), String.class);
+
+		Assertions.assertEquals(HttpStatus.OK, infoResponse.getStatusCode());
+		String respuesta_esperada = "{" +
+				"\"email\":\"" + EMAIL + "\"," +
+				"\"nombre\":\"" + NOMBRE + "\"," +
+				"\"cuentas\":" + CUENTAS +
+				"}";
+
+		assertEquals(respuesta_esperada, infoResponse.getBody());
 	}
 	@Test
 	public void crearCuentaOK(){

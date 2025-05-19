@@ -25,7 +25,6 @@ public class Pago {
 
     @JoinColumn(name = "cuenta_destino_id", nullable = false)
     @ManyToOne
-    @NotNull
     private Cuenta cuenta_destino;
 
     public long getId() {

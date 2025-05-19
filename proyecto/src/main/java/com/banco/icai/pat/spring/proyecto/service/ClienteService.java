@@ -97,11 +97,16 @@ public class ClienteService {
         destino.setSaldo(destino.getSaldo()+transferencia.importe());
         cuentasRepository.save(origen);
         cuentasRepository.save(destino);
+        Pago pago= new Pago();
+        pago.setCuenta_origen(origen);
+        pago.setCuenta_destino(destino);
+        pago.setImporte(transferencia.importe());
+        pago.setTipo("transferencia");
+        pagosRepository.save(pago);
 
     }
 
-
-
+    
 
 
     public Cliente authentication(String tokenId) {
@@ -134,6 +139,7 @@ public class ClienteService {
             cuenta.setIban(BancoTools.generarIban(Sucursal.valueOf(crearCuenta.sucursal()),crearCuenta.numeroCuenta()));
             cuenta.setSucursal(Sucursal.valueOf(crearCuenta.sucursal()));
             cuenta.setCliente(cliente);
+            cuenta.setSaldo(50.0);
             cliente.cuentas.add(cuenta);
             clientesRepository.save(cliente);
         }
@@ -170,6 +176,33 @@ public class ClienteService {
         pago.setImporte(bizumRequest.importe());
         pago.setTipo("bizum");
         pagosRepository.save(pago);
+    }
+    public void realizarCompra(CompraRequest compraRequest,String tokenid){
+        Optional<Token> token= tokenRepository.findById(Long.valueOf(tokenid));
+        if(token.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"No existe el token");}
+        Optional<Cliente> cliente0=clientesRepository.findByEmail(token.get().getCliente().getEmail());
+        if(cliente0.isPresent()){
+            Optional<Cuenta> cuenta0=cuentasRepository.findByIban(compraRequest.iban());
+            if(cuenta0.isPresent()){
+                Cuenta cuenta=cuenta0.get();
+                if(!cuenta.getCliente().getEmail().equals(cliente0.get().getEmail())){
+                    throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"No tienes permiso para acceder a esta cuenta");
+                }
+                if(cuenta.getSaldo()<compraRequest.importe()){
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"No hay suficiente saldo saldo");
+                }
+                cuenta.setSaldo(cuenta.getSaldo()-compraRequest.importe());
+                cuentasRepository.save(cuenta);
+                //GUARDAR LA COMPRA AQUIIIIIIIIIIIIIIIIIIIIIIIII
+
+            }else{
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No existe la cuenta");
+            }
+        }else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No existe el cliente");
+        }
+
     }
     public void modificarSaldo(SaldoModRequest operacion, String tokenid){
         Optional<Token> token= tokenRepository.findById(Long.valueOf(tokenid));
