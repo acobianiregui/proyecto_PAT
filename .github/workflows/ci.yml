@@ -23,6 +23,6 @@ jobs:
 
       - name: Compilar con Maven
         run: mvn -B package --file proyecto/pom.xml
-
+#Añadido por Anton (Troncho) para que tambien se ejecuten los tests
       - name: Ejecutar tests
         run: mvn -f proyecto/pom.xml test
