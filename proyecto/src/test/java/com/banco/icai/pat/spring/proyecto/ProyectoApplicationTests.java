@@ -169,4 +169,35 @@ class ProyectoApplicationTests {
 		Assertions.assertEquals(HttpStatus.CREATED, cuentaResponse.getStatusCode());
 	}
 
+	@Test
+	public void eliminarClienteOK(){
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		//Ahora hacer el login y comprobar que este bien
+		String login = "{" +
+				"\"email\":\"" + EMAIL + "\"," +
+				"\"password\":\"" + PASSWORD + "\"}";
+
+		ResponseEntity<String> loginResponse = client.exchange(
+				"http://localhost:8080/api/royale/users",
+				HttpMethod.POST, new HttpEntity<>(login, headers), String.class);
+
+		Assertions.assertEquals(HttpStatus.CREATED, loginResponse.getStatusCode());
+
+		List<String> cookies = loginResponse.getHeaders().get("Set-Cookie");
+		String sessionCookie = cookies.stream()
+				.filter(c -> c.startsWith("session="))
+				.findFirst()
+				.orElseThrow(() -> new RuntimeException("No session cookie found"))
+				.split(";")[0];
+		//Ahora puedo eliminarme como cliente
+		headers.add("Cookie", sessionCookie);
+		ResponseEntity<String> infoResponse = client.exchange(
+				"http://localhost:8080/api/royale/cliente",
+				HttpMethod.DELETE, new HttpEntity<>(null, headers), String.class);
+		Assertions.assertEquals(HttpStatus.NO_CONTENT, infoResponse.getStatusCode());
+
+
+	}
+
 }
