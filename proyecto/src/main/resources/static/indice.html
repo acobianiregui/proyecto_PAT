@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio de sesión -RoyaleBank</title>
+    <link rel="stylesheet" href="estilos.css">
+	<script defer src="login.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>Bienvenido a RoyaleBank</h1>
+    </header>
+
+    <main>
+        <section class="formulario">
+            <form id="loginForm">
+                <label for="mail">Mail:</label>
+                <input type="email" id="mail" name="mail" required>
+
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="submit" formaction="cuentas.html">Iniciar sesión</button>
+            </form>
+
+            <p>¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a></p>
+			<p id="loginError" style="color: red; display: none;"></p>
+        </section>
+    </main>
+
+    
+</body>
+</html>
+

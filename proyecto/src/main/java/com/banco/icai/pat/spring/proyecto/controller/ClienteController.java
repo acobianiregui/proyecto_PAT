@@ -141,6 +141,13 @@ public class ClienteController {
         clienteService.eliminarCuenta(session, iban);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+    @DeleteMapping("/api/royale/cliente")
+    public ResponseEntity<Void> eliminarCliente(@CookieValue(value = "session", required = true) String session) {
+        Cliente cliente = clienteService.authentication(session);
+        if (cliente == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        clienteService.eliminarCliente(session);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 
 
 }

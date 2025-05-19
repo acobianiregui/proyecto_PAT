@@ -23,27 +23,27 @@ public class Cliente {
 
     @Column(nullable = false)
     @NotBlank
-    public String nombre;
+    private String nombre;
 
     @Column(nullable = false)
 
-    public String apellido;
+    private String apellido;
 
 
     @Column(nullable = false,unique = true)
     @NotBlank
-    public String email;
+    private String email;
 
     @Column(nullable = false)
     @NotBlank
-    public String telefono;
+    private String telefono;
 
     @Column(nullable = false)
     @NotBlank
-    public String password;
+    private String password;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
-    public List<Cuenta> cuentas= new ArrayList<>();
+    private List<Cuenta> cuentas= new ArrayList<>();
 
     public String getDni() {
         return dni;

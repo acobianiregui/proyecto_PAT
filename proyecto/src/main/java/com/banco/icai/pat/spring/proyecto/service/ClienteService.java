@@ -30,10 +30,7 @@ public class ClienteService {
     @Autowired
     CuentasRepository cuentasRepository;
     @Autowired
-
     TokenRepository tokenRepository;
-    @Autowired
-    private ServletConfig servletConfig;
     @Autowired
     private PagosRepository pagosRepository;
 
@@ -41,7 +38,7 @@ public class ClienteService {
     public Token login(String email, String password) {
         Optional<Cliente> cliente = clientesRepository.findByEmail(email);
         if (cliente.isEmpty()) return null;
-        if(cliente.get().password.equals(password)) {
+        if(cliente.get().getPassword().equals(password)) {
             Cliente cliente1=cliente.get();
             Token token = tokenRepository.findByCliente(cliente1);
 
@@ -57,17 +54,17 @@ public class ClienteService {
     public ClientResponse profile(Cliente cliente) {
         if (cliente == null) return null;
         clientesRepository.save(cliente);
-        ClientResponse clientResponse = new ClientResponse(cliente.email, cliente.nombre, cliente.cuentas);
+        ClientResponse clientResponse = new ClientResponse(cliente.getEmail(), cliente.getNombre(), cliente.getCuentas());
         return clientResponse;
     }
 
     public ClientResponse profile(RegisterRequest register) {
         Cliente cliente = new Cliente();
-        cliente.nombre = register.nombre();
-        cliente.apellido = register.apellido();
-        cliente.email = register.email();
-        cliente.telefono = register.telefono();
-        cliente.password = register.password();
+        cliente.setNombre(register.nombre());
+        cliente.setApellido(register.apellido());
+        cliente.setEmail(register.email());
+        cliente.setTelefono(register.telefono());
+        cliente.setPassword(register.password());
         cliente.setDni(register.dni());
         return profile(cliente);
     }
@@ -145,7 +142,7 @@ public class ClienteService {
             cuenta.setSucursal(Sucursal.valueOf(crearCuenta.sucursal()));
             cuenta.setCliente(cliente);
             cuenta.setSaldo(50.0);
-            cliente.cuentas.add(cuenta);
+            cliente.getCuentas().add(cuenta);
             clientesRepository.save(cliente);
         }
     }
