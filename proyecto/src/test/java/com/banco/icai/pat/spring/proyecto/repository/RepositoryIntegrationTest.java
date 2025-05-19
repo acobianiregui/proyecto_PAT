@@ -2,6 +2,8 @@ package com.banco.icai.pat.spring.proyecto.repository;
 
 import com.banco.icai.pat.spring.proyecto.entity.Cliente;
 import com.banco.icai.pat.spring.proyecto.entity.Cuenta;
+import com.banco.icai.pat.spring.proyecto.entity.Pago;
+import com.banco.icai.pat.spring.proyecto.entity.Token;
 import com.banco.icai.pat.spring.proyecto.model.Sucursal;
 import com.banco.icai.pat.spring.proyecto.util.BancoTools;
 import org.junit.jupiter.api.BeforeAll;
@@ -22,6 +24,10 @@ public class RepositoryIntegrationTest {
     ClientesRepository clientesRepository;
     @Autowired
     CuentasRepository cuentasRepository;
+    @Autowired
+    TokenRepository tokenRepository;
+    @Autowired
+    private PagosRepository pagosRepository;
 
     @Test
     public void guardarTest(){ //Guardaremos un cliente con 2 cuentas
@@ -30,6 +36,9 @@ public class RepositoryIntegrationTest {
         Cliente cliente= new Cliente();
         Cuenta cuenta1= new Cuenta();
         Cuenta cuenta2= new Cuenta();
+        Token token= new Token();
+        token.setCliente(cliente);
+
         //Cuenta 1
         cuenta1.setIban(BancoTools.generarIban(Sucursal.BARCELONA,"0001234567"));
         cuenta1.setSaldo(0);
@@ -55,9 +64,9 @@ public class RepositoryIntegrationTest {
 
         //Guardamos
         clientesRepository.save(cliente);
-        System.out.println(cuentasRepository.count());
         cuentasRepository.save(cuenta1);
         cuentasRepository.save(cuenta2);
+        tokenRepository.save(token);
 
         //Comprobar que estan ahi
         assertEquals(1,clientesRepository.count());
@@ -66,11 +75,13 @@ public class RepositoryIntegrationTest {
         Cliente busqueda_cl = clientesRepository.findBydni(cliente.getDni()).orElse(null);
         Cuenta bc1= cuentasRepository.findByIban(cuenta1.getIban()).orElse(null);
         Cuenta bc2= cuentasRepository.findByIban(cuenta2.getIban()).orElse(null);
+        Token t1= tokenRepository.findByCliente(cliente);
 
         //No deben ser null
         assertNotNull(busqueda_cl);
         assertNotNull(bc1);
         assertNotNull(bc2);
+        assertNotNull(t1);
 
 
         //dni e email
@@ -88,10 +99,13 @@ public class RepositoryIntegrationTest {
     }
 
     @Test
-    public void borradoCompleto(){ //Al borrar un cliente, se debe borrar to_do lo asociado
+    public void borradoCompleto(){ //Al borrar un cliente, se debe borrar todo lo asociado
         Cliente cliente= new Cliente();
         Cuenta cuenta1= new Cuenta();
         Cuenta cuenta2= new Cuenta();
+        Token token= new Token();
+        token.setCliente(cliente);
+
         //Cuenta 1
         cuenta1.setIban(BancoTools.generarIban(Sucursal.BARCELONA,"0001234567"));
         cuenta1.setSaldo(0);
@@ -118,6 +132,7 @@ public class RepositoryIntegrationTest {
         clientesRepository.save(cliente);
         cuentasRepository.save(cuenta1);
         cuentasRepository.save(cuenta2);
+        tokenRepository.save(token);
 
         //Comprobar que estan ahi
         assertEquals(1,clientesRepository.count());
@@ -129,6 +144,7 @@ public class RepositoryIntegrationTest {
         clientesRepository.delete(busqueda);
         assertEquals(0,clientesRepository.count());
         assertEquals(0,cuentasRepository.count());
+        assertEquals(0,tokenRepository.count());
     }
     @Test
     public void integridadTest(){
@@ -145,4 +161,41 @@ public class RepositoryIntegrationTest {
         });
 
     }
+
+    @Test
+    public void testIntegridadPago() {
+        Cliente cliente = new Cliente();
+
+
+        Cuenta cuenta1 = new Cuenta();
+        cuenta1.setIban(BancoTools.generarIban(Sucursal.BARCELONA, "0001234567"));
+        cuenta1.setSaldo(0);
+        cuenta1.setSucursal(Sucursal.BARCELONA);
+        cuenta1.setCliente(cliente);
+
+        cliente.setNombre("Anton");
+        cliente.setDni("12345678Z");
+        cliente.setApellido("Cobian");
+        cliente.setEmail("pepelarana@gmail.com");
+        cliente.setTelefono("640453289");
+        cliente.setPassword("Aventura8");
+        ArrayList<Cuenta> cuentas= new ArrayList<>();
+        cuentas.add(cuenta1);
+        cliente.setCuentas(cuentas);
+
+
+        Pago pago = new Pago();
+        pago.setCuenta_destino(cuenta1);
+        pago.setCuenta_origen(null);
+        pago.setImporte(100);
+
+        clientesRepository.save(cliente);
+        cuentasRepository.save(cuenta1);
+
+        assertThrows(DataIntegrityViolationException.class, () -> {
+            pagosRepository.save(pago);
+
+        });
+    }
+
 }
