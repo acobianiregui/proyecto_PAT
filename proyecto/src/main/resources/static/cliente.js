@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     const cliente = await response.json();
+    saludo.textContent = "Bienvenido, ${cliente.nombre}";
 
     // Mostrar saludo
     saludo.textContent = `Bienvenido, ${cliente.nombre}`;
@@ -30,9 +31,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         <td>${cuenta.iban}</td>
         <td>${cuenta.saldo.toFixed(2)} €</td>
         <td>${cuenta.sucursal}</td>
+        <td><button class="btnAcceder" data-iban="${cuenta.iban}">Acceder</button></td>
       `;
       tabla.appendChild(fila);
     });
+    tabla.addEventListener("click", e => {
+          if (e.target.classList.contains("btnAcceder")) {
+            const iban = e.target.dataset.iban;
+            window.location.href = `cuenta.html?iban=${encodeURIComponent(iban)}`;
+          }
+        });
 
   } catch (error) {
     console.error("Error al cargar datos del cliente:", error);
