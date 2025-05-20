@@ -15,14 +15,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Mostrar el IBAN en el título
-  titulo.textContent = "Cuenta: ${iban}";
+  titulo.textContent = `Cuenta: ${iban}`;
 
   // Redirecciones con el IBAN
   btnBizum.addEventListener("click", () => {
-    window.location.href = "bizum.html?iban=${encodeURIComponent(iban)}";
+    window.location.href = `bizum.html?iban=${encodeURIComponent(iban)}`;
   });
 
   btnTransacciones.addEventListener("click", () => {
-    window.location.href = "transferencia.html?iban=${encodeURIComponent(iban)}";
+    window.location.href = `transferencia.html?iban=${encodeURIComponent(iban)}`;
   });
 });

@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     tabla.addEventListener("click", e => {
           if (e.target.classList.contains("btnAcceder")) {
             const iban = e.target.dataset.iban;
-            window.location.href = "cuenta.html?iban=${encodeURIComponent(iban)}";
+            window.location.href = `cuenta.html?iban=${encodeURIComponent(iban)}`;
           }
         });
 
@@ -46,4 +46,5 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("Error al cargar datos del cliente:", error);
     alert("Error inesperado.");
   }
+
 });
