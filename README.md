@@ -183,7 +183,7 @@ Se han desarrollado tests E2E usando `TestRestTemplate` para simular peticiones 
 - **Creación de cuenta bancaria**: se comprueba que un cliente autenticado puede crear nuevas cuentas asociadas a su perfil.
 - **Eliminación de cliente**: se testea que un cliente autenticado puede eliminar su cuenta y que los datos son eliminados correctamente.
 
----
+
 
 ## ⚙️ Integración y Despliegue Continuos (CI/CD)
 
@@ -208,7 +208,7 @@ Cada vez que se hace `push` a la rama `main` y las comprobaciones del CI son exi
 
 Gracias a esto, aseguramos que los cambios en el proyecto estén disponibles en producción de forma rápida, segura y controlada.
 
----
+
 
 
 ## 📅 Planificación 
