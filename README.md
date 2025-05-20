@@ -34,7 +34,7 @@ Además el formulario de registro incluye validaciones en el lado del cliente ut
 ![Pantalla principal](fotos/principal.png)
 
 Aquí se muestran todas las cuentas asociadas al cliente.  
-Desde esta vista el usuario puede consultar saldos, movimientos y acceder a las funciones de **Bizum** y **transferencia**.
+Desde esta vista el usuario puede consultar saldos, movimientos y acceder a las funciones de **Crear cuenta**, **Bizum** y **transferencia**.
 
 ---
 
