@@ -42,7 +42,7 @@ public class ClienteController {
                 .from("session", String.valueOf(token.getId()))
                 .httpOnly(true)
                 .path("/")
-                .sameSite("Strict")
+                .sameSite("Lax")
                 .build();
         return ResponseEntity.status(HttpStatus.CREATED).header(HttpHeaders.SET_COOKIE, session.toString()).build();
     }
