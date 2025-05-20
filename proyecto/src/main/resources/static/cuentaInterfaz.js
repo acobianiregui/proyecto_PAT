@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const titulo = document.getElementById("tituloCuenta");
   const saldoElemento = document.getElementById("saldoCuenta");
   const btnBizum = document.getElementById("btnBizum");
-  const btnTransacciones = document.getElementById("btnTransacciones");
+  const btnTransacciones = document.getElementById("btnTransferencias");
 
   // Obtener parámetros de la URL
   const params = new URLSearchParams(window.location.search);
