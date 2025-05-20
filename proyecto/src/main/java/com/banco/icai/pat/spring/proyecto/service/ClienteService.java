@@ -141,7 +141,7 @@ public class ClienteService {
             cuenta.setIban(BancoTools.generarIban(Sucursal.valueOf(crearCuenta.sucursal()),crearCuenta.numeroCuenta()));
             cuenta.setSucursal(Sucursal.valueOf(crearCuenta.sucursal()));
             cuenta.setCliente(cliente);
-            cuenta.setSaldo(50.0);
+            cuenta.setSaldo(200.0);
             cliente.getCuentas().add(cuenta);
             clientesRepository.save(cliente);
         }
