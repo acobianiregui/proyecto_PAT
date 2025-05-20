@@ -48,8 +48,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
           fila.innerHTML = `
             <td>${op.tipo}</td>
-            <td>${op.cuentaOrigen?.iban || '-'}</td>
-            <td>${op.cuentaDestino?.iban || '-'}</td>
+            <td>${op.cuenta_origen?.iban || '-'}</td>
+            <td>${op.cuenta_destino?.iban || '-'}</td>
             <td>${op.importe.toFixed(2)} €</td>
             <td>${op.concepto || '-'}</td>
           `;
