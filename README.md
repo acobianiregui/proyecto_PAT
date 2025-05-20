@@ -90,7 +90,7 @@ El sistema verifica que el destinatario esté registrado antes de realizar la op
 
 ### 💸 Transferencia
 
-![Transferencia]
+![Transferencia](fotos/transferencia.png)
 
 Desde esta sección, el cliente puede realizar transferencias bancarias entre sus cuentas o hacia cuentas de terceros dentro del sistema RoyaleBank.  
 Se requiere el número de cuenta destino y el importe.
