@@ -42,7 +42,7 @@ document.getElementById("registroForm").addEventListener("submit", async functio
         return;
       }
 
-      window.location.href = "indice.html";
+      window.location.href = "index.html";
     } catch (error) {
       console.error("Error al registrarse:", error);
 	  errorMsg.textContent = "Error inesperado. Inténtalo de nuevo más tarde.";

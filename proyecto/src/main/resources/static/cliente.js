@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (!response.ok) {
       //alert("Sesión inválida o expirada.");
-      window.location.href = "indice.html";
+      window.location.href = "index.html";
       return;
     }
 
