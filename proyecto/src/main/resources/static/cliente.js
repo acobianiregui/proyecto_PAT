@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (e.target.classList.contains("btnAcceder")) {
         const iban = e.target.dataset.iban;
         const saldo = e.target.dataset.saldo;
-        window.location.href = `cuenta.html?iban=${encodeURIComponent(iban)}&saldo=${encodeURIComponent(saldo)}`;
+        window.location.href = `cuentaInterfaz.html?iban=${encodeURIComponent(iban)}&saldo=${encodeURIComponent(saldo)}`;
       }
     });
 
