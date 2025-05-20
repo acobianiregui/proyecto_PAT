@@ -1,3 +1,4 @@
+
 const BASE_URL = window.location.hostname === 'localhost'
     ? "http://localhost:8080/api/royale/users"
     : "http://royale-1wd7.onrender.com/api/royale/users";
@@ -16,7 +17,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
       headers: {
         "Content-Type": "application/json"
       },
-      credentials: "include", // 👈 Para enviar/recibir cookies
+      credentials: "include",
       body: JSON.stringify({
         email: email,
         password: contrasenya
@@ -42,4 +43,5 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
     errorMsg.style.display = "block";
   }
 });
+
 
