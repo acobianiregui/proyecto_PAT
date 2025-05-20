@@ -1,6 +1,6 @@
 const BASE_URL = window.location.origin.includes("localhost")
     ? "http://localhost:8080/api/royale"
-    : "http://royale-1wd7.onrender.com/api/royale";
+    : "https://royale-1wd7.onrender.com/api/royale";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const saludo = document.getElementById("saludo");

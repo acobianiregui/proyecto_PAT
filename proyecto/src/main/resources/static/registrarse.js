@@ -1,7 +1,7 @@
 
 const BASE_URL = window.location.hostname === 'localhost'
 	? "http://localhost:8080/api/royale"
-	: "http://royale-1wd7.onrender.com/api/royale";
+	: "https://royale-1wd7.onrender.com/api/royale";
 
 document.getElementById("registroForm").addEventListener("submit", async function(event) {
 	event.preventDefault();
