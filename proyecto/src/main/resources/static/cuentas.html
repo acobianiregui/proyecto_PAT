@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mis cuentas - RoyaleBank</title>
+  <link rel="stylesheet" href="estilos.css">
+  <script defer src="cliente.js"></script>
+</head>
+<body>
+<header>
+  <h1 id="saludo">Bienvenido</h1>
+</header>
+
+<main>
+  <section class="cuentas">
+    <h2>Tus cuentas activas</h2>
+
+    <div class="contenedor-scroll">
+      <table id="tablaCuentas">
+        <thead>
+        <tr>
+          <th>IBAN</th>
+          <th>Saldo</th>
+          <th>Sucursal</th>
+          <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+    </div>
+
+    <button id="btnNuevaCuenta">Crear nueva cuenta</button>
+    <script>document.getElementById("btnNuevaCuenta").addEventListener("click", () => {
+    window.location.href = "crearcuenta.html"; // Cambia por la ruta que necesites
+    });</script>
+
+  </section>
+</main>
+</body>
+</html>

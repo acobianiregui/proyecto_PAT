@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Enviar Bizum - RoyaleBank</title>
+  <link rel="stylesheet" href="estilos.css">
+  <script defer src="bizum.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Realizar Bizum</h1>
+  </header>
+
+  <main>
+    <section class="formulario">
+      <form id="bizumForm">
+        <label for="destinatario">Número de telefono del destinatario:</label>
+        <input type="number" id="destinatario" name="destinatario" required>
+
+        <label for="cantidad">Cantidad a enviar:</label>
+        <div class="campo-euro">
+            <input type="number" id="cantidad" name="cantidad" min="0.01" step="0.01" required>
+            <span class="simbolo-euro">€</span>
+        </div>
+
+        <button type="submit">Enviar Bizum</button>
+      </form>
+      <div id="mensaje" class="mensaje-error" style="color: red; margin-top: 1em;"></div>
+      <p><a href="cuentas.html">Volver a mis cuentas</a></p>
+    </section>
+  </main>
+
+</body>
+</html>

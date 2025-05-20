@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Crear nueva cuenta - RoyaleBank</title>
+  <link rel="stylesheet" href="estilos.css">
+  <script defer src="crearCuenta.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Crear nueva cuenta bancaria</h1>
+  </header>
+
+  <main>
+    <section class="formulario">
+      <form id="formCrearCuenta">
+        <label for="sucursal">Sucursal:</label>
+        <select id="sucursal" name="sucursal" required>
+          <option value="" disabled selected>Selecciona una sucursal</option>
+          <option value="Madrid">Madrid</option>
+          <option value="Barcelona">Barcelona</option>
+          <option value="Bilbao">Bilbao</option>
+        </select>
+
+        <label for="numeroCuenta">Número de cuenta (10 dígitos):</label>
+        <input type="text" id="numeroCuenta" name="numeroCuenta" 
+               pattern="\d{10}" maxlength="10" required
+               title="Debe contener exactamente 10 dígitos numéricos">
+
+        <button type="submit">Crear cuenta</button>
+      </form>
+      <div id="mensaje" style="color: red; margin-top: 1em;"></div>
+      <p><a href="cuentas.html">Volver a mis cuentas</a></p>
+    </section>
+  </main>
+</body>
+</html>

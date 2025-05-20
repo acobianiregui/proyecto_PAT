@@ -11,8 +11,10 @@ public class ConfiguracionCors implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("*")
+
+                .allowedOrigins("http://127.0.0.1:3000", "https://royale-1wd7.onrender.com","http://localhost:3000")
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
-                .allowedHeaders("*");
+                .allowedHeaders("*")
+                .allowCredentials(true);
     }
 }
