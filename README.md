@@ -1,3 +1,5 @@
+### **Leer documento, incluye guía de uso, documentacion y planificación.**
+
 # 🏦 RoyaleBank
 RoyaleBank es una aplicación bancaria moderna que hemos desarrollado como proyecto académico. La plataforma permite a los usuarios registrarse como clientes, crear y gestionar sus cuentas bancarias, y realizar operaciones como transferencias y Bizums de forma rápida y segura.
 
@@ -180,3 +182,49 @@ Se han desarrollado tests E2E usando `TestRestTemplate` para simular peticiones 
 - **Consulta de información del cliente**: se valida que un usuario logueado puede recuperar su perfil.
 - **Creación de cuenta bancaria**: se comprueba que un cliente autenticado puede crear nuevas cuentas asociadas a su perfil.
 - **Eliminación de cliente**: se testea que un cliente autenticado puede eliminar su cuenta y que los datos son eliminados correctamente.
+
+## 📅 Planificación 
+
+Nuestra planificación se basó en una estrategia clara y realista, dividiendo el trabajo por roles entre los cuatro miembros del equipo y organizando las tareas en iteraciones bien definidas.
+
+### 👥 Reparto del equipo
+- **Backend**: Miguel y Antón  
+- **Frontend**: Álvaro e Iñigo  
+- **Despliegue**: Antón
+
+### 🔄 Roadmap y Ciclos de Trabajo
+
+Dividimos el proyecto en tres grandes iteraciones:
+
+#### 🧩 Iteración 1: Estructura base y configuración inicial
+- Diseño de entidades y creación de repositorios (Miguel y Antón)
+- Inicio del desarrollo del frontend: pantalla principal del cliente (Álvaro e Iñigo)
+
+#### 🔍 Iteración 2: Lógica de negocio y pruebas
+- Implementación de los servicios y controladores en backend (Miguel y Antón)
+- Desarrollo de tests:
+  - Unitarios e integración para repositorios
+  - End-to-end para probar los endpoints de la API REST
+- Avance del frontend con navegación y funcionalidades como Bizum y Transferencias (Álvaro e Iñigo)
+
+#### 🚀 Iteración 3: Integración y despliegue
+- Integración completa de frontend con backend
+- Verificación de funcionamiento completo del sistema
+- Despliegue en la plataforma **Render** a cargo de Antón
+
+### 📋 División y priorización de tareas (Backlog)
+- [✔️] Diseño de entidades (Miguel, Antón)
+- [✔️] Creación de repositorios y pruebas unitarias (Miguel, Antón)
+- [✔️] Servicios y controladores REST (Miguel, Antón)
+- [✔️] Tests de integración y end-to-end (Miguel, Antón)
+- [✔️] Desarrollo de la interfaz (Álvaro, Iñigo)
+- [✔️] Verificación de funcionalidades del cliente (Álvaro, Iñigo)
+- [✔️] Despliegue final (Antón)
+
+### 🎯 Objetivos por iteración
+
+| Iteración | Objetivo principal                                   |
+|-----------|------------------------------------------------------|
+| 1         | Estructura del backend y primeras vistas del frontend|
+| 2         | Lógica de negocio, pruebas y avance del frontend     |
+| 3         | Integración completa y despliegue                    |
