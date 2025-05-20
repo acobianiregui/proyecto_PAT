@@ -90,7 +90,7 @@ Este proyecto cuenta con las siguientes entidades principales:
 | **Cuenta**  | cuenta_id         | Identificador único de la cuenta   | 456                          | Clave primaria (PK)                |
 |             | iban              | Número IBAN único de la cuenta     | "ES9121000418450200051332"   | Único y obligatorio                |
 |             | saldo             | Saldo actual de la cuenta          | 1500.75                      | Obligatorio                       |
-|             | sucursal          | Sucursal bancaria                  | "MADRID_CENTRO"              | Obligatorio                       |
+|             | sucursal          | Sucursal bancaria                  | "Bilbao"              | Obligatorio                       |
 |             | cliente_id        | Cliente dueño de la cuenta         | 123                          | Clave foránea (FK)                 |
 
 ---
