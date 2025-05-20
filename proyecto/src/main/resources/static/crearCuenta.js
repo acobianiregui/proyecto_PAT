@@ -29,10 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
         })
       });
 
-      const data = await response.json();
 
       if (!response.ok) {
-        mensaje.textContent = data.mensaje || "No se pudo crear la cuenta.";
+        mensaje.textContent = data.mensaje || "Ya existe ese número de cuenta";
         return;
       }
 
