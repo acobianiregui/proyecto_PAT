@@ -17,23 +17,23 @@ public class CompraRequestUnitTest {
     @Test
     public void compraRequestOK(){
         CompraRequest compraRequest = new CompraRequest(
-                50, "ES88 4835 0418 7712 3456 7899", "Gafas");
+                50.0, "ES88 4835 0418 7712 3456 7899", "Gafas");
         Set<ConstraintViolation<CompraRequest>> violations= validator.validate(compraRequest);
         assertTrue(violations.isEmpty());
     }
     @Test
     public void importeErroneo(){
         CompraRequest compraRequest = new CompraRequest(
-                0, "ES88 4835 0418 7712 3456 7899", "Gafas");
+                0.0, "ES88 4835 0418 7712 3456 7899", "Gafas");
         Set<ConstraintViolation<CompraRequest>> violations= validator.validate(compraRequest);
         assertTrue(violations.size() == 1);
         assertTrue(violations.iterator().next().getPropertyPath().toString().equals("importe"));
-        assertTrue(violations.iterator().next().getInvalidValue().equals(0));
+        assertTrue(violations.iterator().next().getInvalidValue().equals(0.0));
     }
     @Test
     public void ibanErroneo(){
         CompraRequest compraRequest = new CompraRequest(
-                50, "ES11 4835 0418 7712 3456", "Gafas");
+                50.0, "ES11 4835 0418 7712 3456", "Gafas");
         Set<ConstraintViolation<CompraRequest>> violations= validator.validate(compraRequest);
         assertEquals(1, violations.size());
         assertEquals("iban", violations.iterator().next().getPropertyPath().toString());
