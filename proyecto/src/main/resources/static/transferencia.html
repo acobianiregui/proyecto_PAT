@@ -14,13 +14,11 @@
   <main>
     <section class="formulario">
       <form id="formTransferencia">
-        <label for="ibanOrigen">IBAN de origen:</label>
-        <input type="text" id="ibanOrigen" name="ibanOrigen" required
-               pattern="^ES\d{29}$" title="Debe comenzar por ES seguido de 22 números.">
+
 
         <label for="ibanDestino">IBAN de destino:</label>
         <input type="text" id="ibanDestino" name="ibanDestino" required
-               pattern="^ES\d{29}$" title="Debe comenzar por ES seguido de 22 números.">
+               pattern="^ES\d{22}$|^ES\d{2}(?:\s\d{4}){5}$" title="Debe comenzar por ES seguido de 22 números.">
 
         <label for="importe">Importe (€):</label>
         <div class="campo-euro">

@@ -20,12 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const params = new URLSearchParams(window.location.search);
     const iban = params.get("iban");
 
-    if (iban) {
-        const inputIbanOrigen = document.getElementById("ibanOrigen");
-        inputIbanOrigen.value = iban;
-        inputIbanOrigen.textContent = iban;
-      }
-
     const ibanDestino = document.getElementById("ibanDestino").value.trim();
     const importe = parseFloat(document.getElementById("importe").value);
 
