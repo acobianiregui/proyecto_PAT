@@ -183,6 +183,34 @@ Se han desarrollado tests E2E usando `TestRestTemplate` para simular peticiones 
 - **Creación de cuenta bancaria**: se comprueba que un cliente autenticado puede crear nuevas cuentas asociadas a su perfil.
 - **Eliminación de cliente**: se testea que un cliente autenticado puede eliminar su cuenta y que los datos son eliminados correctamente.
 
+---
+
+## ⚙️ Integración y Despliegue Continuos (CI/CD)
+
+### ✅ Integración continua (CI)
+
+Hemos configurado un sistema de integración continua que se activa automáticamente con cada `push` a la rama `main`.  
+Este proceso está definido en el archivo [`ci.yml`](.github/workflows/ci.yml), y realiza las siguientes acciones:
+
+- Compila el proyecto con **Maven**
+- Ejecuta todos los **tests unitarios, de integración y E2E**
+- Verifica que el código sea válido antes de aceptar cualquier cambio en producción
+
+Esto garantiza que todos los commits en `main` pasen por un control de calidad automático.
+
+### 🚀 Despliegue continuo (CD)
+
+Para el despliegue continuo utilizamos la plataforma [Render](https://render.com).  
+Cada vez que se hace `push` a la rama `main` y las comprobaciones del CI son exitosas, Render:
+
+- Construye la aplicación automáticamente
+- Realiza el despliegue del backend sin intervención manual
+
+Gracias a esto, aseguramos que los cambios en el proyecto estén disponibles en producción de forma rápida, segura y controlada.
+
+---
+
+
 ## 📅 Planificación 
 
 Nuestra planificación se basó en una estrategia clara y realista, dividiendo el trabajo por roles entre los cuatro miembros del equipo y organizando las tareas en iteraciones bien definidas.
