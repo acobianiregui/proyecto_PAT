@@ -1,4 +1,3 @@
-
 const BASE_URL = window.location.hostname === 'localhost'
     ? "http://localhost:8080/api/royale/users"
     : "https://royale-1wd7.onrender.com/api/royale/users";
