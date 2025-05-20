@@ -127,4 +127,20 @@ p {
 }
 
 
-  
+
+
+table {
+  border-collapse: separate;
+  border-spacing: 15px 10px;
+  width: 100%;
+  border: none; 
+}
+
+th, td {
+  border: none;  
+  padding: 12px 15px;
+  background-color: #f0f8ff;  
+  text-align: center;
+  border-radius: 6px; 
+}
+

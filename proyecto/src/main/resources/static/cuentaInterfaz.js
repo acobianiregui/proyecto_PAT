@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnTransacciones = document.getElementById("btnTransferencias");
   const btnHistorialTransferencias = document.getElementById("btnHistorialTransferencias");
 
-  // Obtener parámetros de la URL
+  //Obtener info
   const params = new URLSearchParams(window.location.search);
   const iban = params.get("iban");
   const saldo = params.get("saldo");
@@ -17,13 +17,13 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // Mostrar el IBAN y el saldo en la interfaz
+  
   titulo.textContent = `Cuenta: ${iban}`;
   if (saldoElemento && saldo !== null) {
     saldoElemento.textContent = `Saldo: ${parseFloat(saldo).toFixed(2)} €`;
   }
 
-  // Redirecciones con el IBAN
+  //redireccion
   btnBizum.addEventListener("click", () => {
     window.location.href = `bizum.html?iban=${encodeURIComponent(iban)}`;
   });

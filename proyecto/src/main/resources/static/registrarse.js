@@ -22,6 +22,7 @@ document.getElementById("registroForm").addEventListener("submit", async functio
 		errorMsg.textContent = "Las contraseñas no coinciden";
 		errorMsg.style.display = "block";
 		return; 
+
 	}
 
 	try {
