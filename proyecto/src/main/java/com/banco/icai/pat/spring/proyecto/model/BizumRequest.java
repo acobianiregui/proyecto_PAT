@@ -9,7 +9,7 @@ import jakarta.validation.constraints.Pattern;
 public record BizumRequest(
 
         @Min(1)
-        int importe,
+        double importe,
         @ValidIban
         String iban_origen,
         @Pattern(regexp = "^[6789]\\d{8}$")

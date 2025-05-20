@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Pattern;
 
 public record TransferenciaRequest(
         @Min(1)
-        int importe,
+        double importe,
         @ValidIban
         String iban_cuenta_origen,
         @ValidIban
