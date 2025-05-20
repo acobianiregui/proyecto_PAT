@@ -256,3 +256,12 @@ Dividimos el proyecto en tres grandes iteraciones:
 | 1         | Estructura del backend y primeras vistas del frontend|
 | 2         | Lógica de negocio, pruebas y avance del frontend     |
 | 3         | Integración completa y despliegue                    |
+
+### ⚠️ Funcionalidad pendiente: Tienda integrada con API externa
+
+Inicialmente teníamos planificada una funcionalidad adicional que consistía en una **tienda integrada** en la que se pudieran adquirir productos obtenidos desde una **API externa**.  
+La idea era que, al realizar una compra, esta se reflejara automáticamente en el **historial de transacciones** de la cuenta del usuario, como cualquier otra operación bancaria.
+
+Esta funcionalidad fue completamente **implementada y probada en el backend**, incluyendo la integración con la API externa, el procesamiento de pagos y el registro en el historial de movimientos.  
+Sin embargo, debido a **falta de tiempo provocada por el aplazamiento del examen de Microprocesadores**, **no pudimos completar su implementación en el frontend**.
+
