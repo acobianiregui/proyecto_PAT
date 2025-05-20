@@ -125,21 +125,6 @@ p {
 .boton:hover {
   background-color: #005f99;
 }
-.cuentas {
-  max-width: 600px;
-  width: 90%;
-  margin: 0 auto;
-}
-
-.tarjeta-cuenta {
-  padding: 20px;
-  margin-bottom: 25px;
-}
-
-.contenedor-scroll {
-  max-height: 600px;
-  padding: 20px;
-}
 
 
   
