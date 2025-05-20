@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const tabla = document.getElementById("tablaTransferencias").querySelector("tbody");
   const saludo = document.getElementById("saludo");
 
-  // Obtener IBAN de la URL
+  //Obtener iban
   const params = new URLSearchParams(window.location.search);
   const iban = params.get("iban");
 

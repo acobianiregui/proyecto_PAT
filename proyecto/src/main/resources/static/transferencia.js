@@ -5,7 +5,7 @@ const BASE_URL = window.location.origin.includes("localhost")
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("formTransferencia");
 
-  // Crear un elemento para mostrar mensajes al usuario
+
   const mensaje = document.createElement("p");
   mensaje.id = "mensaje";
   mensaje.style.color = "red";

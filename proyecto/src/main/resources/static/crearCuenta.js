@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // Limpiar mensaje previo
+    //limpiar
     mensaje.textContent = "";
     mensaje.style.color = "red";
 

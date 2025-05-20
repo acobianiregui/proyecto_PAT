@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     const response = await fetch(BASE_URL, {
       method: "GET",
-      credentials: "include" // 👈 Envía la cookie con la sesión
+      credentials: "include" //Para enviar la cookie
     });
 
     if (!response.ok) {
@@ -19,10 +19,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const cliente = await response.json();
 
-    // Mostrar saludo
+  
     saludo.textContent = `Bienvenido, ${cliente.nombre}`;
 
-    // Mostrar cuentas en la tabla
+    //Tabla
     cliente.cuentas.forEach(cuenta => {
       const fila = document.createElement("tr");
       fila.innerHTML = `

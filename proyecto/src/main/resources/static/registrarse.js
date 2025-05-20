@@ -21,7 +21,7 @@ document.getElementById("registroForm").addEventListener("submit", async functio
 	if(password1 != password2){
 		errorMsg.textContent = "Las contraseñas no coinciden";
 		errorMsg.style.display = "block";
-		return; // Para que no siga si las contraseñas no coinciden
+		return; //Si no coinciden
 	}
 
 	try {
