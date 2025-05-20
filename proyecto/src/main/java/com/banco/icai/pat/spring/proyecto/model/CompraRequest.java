@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 
 public record CompraRequest(
     @Min(1)
-    int importe,
+    double importe,
     @ValidIban
     String iban,
     @NotEmpty
