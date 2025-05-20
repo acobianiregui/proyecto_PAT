@@ -32,9 +32,9 @@ document.addEventListener("DOMContentLoaded", async () => {
           return;
         }
 
-
-
     saludo.textContent = `Historial de Transferencias para cuenta: ${iban}`;
+
+    const operaciones = await response.json();
 
     if (operaciones.length === 0) {
       const filaVacia = document.createElement("tr");
