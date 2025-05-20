@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const saldoElemento = document.getElementById("saldoCuenta");
   const btnBizum = document.getElementById("btnBizum");
   const btnTransacciones = document.getElementById("btnTransferencias");
+  const btnHistorialTransferencias = document.getElementById("btnHistorialTransferencias");
 
   // Obtener parámetros de la URL
   const params = new URLSearchParams(window.location.search);
@@ -30,4 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
   btnTransacciones.addEventListener("click", () => {
     window.location.href = `transferencia.html?iban=${encodeURIComponent(iban)}`;
   });
+  btnHistorialTransferencias.addEventListener("click", () => {
+      window.location.href = `historialTransferencia.html?iban=${encodeURIComponent(iban)}`;
+    });
 });
