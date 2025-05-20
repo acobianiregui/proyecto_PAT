@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     const cliente = await response.json();
-    saludo.textContent = "Bienvenido, ${cliente.nombre}";
+
 
     // Mostrar saludo
     saludo.textContent = `Bienvenido, ${cliente.nombre}`;
