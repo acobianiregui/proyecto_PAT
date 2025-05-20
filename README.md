@@ -49,6 +49,34 @@ Desde esta vista el usuario puede consultar saldos, movimientos y acceder a las 
 Desde esta pantalla el cliente puede crear una nueva cuenta bancaria.    
 La cuenta quedará automáticamente asociada a su perfil y será visible en la pantalla principal.
 
+
+---
+
+### 🔍 Acciones de una cuenta
+
+![Acciones de cuenta](fotos/acciones.png)
+
+Desde esta vista, el usuario puede gestionar una cuenta concreta.  
+Se ofrecen las siguientes funcionalidades:
+
+- **Hacer Bizum**: enviar dinero rápidamente a otros usuarios de RoyaleBank usando su número de teléfono.
+- **Hacer transferencia**: enviar dinero a otras cuentas bancarias introduciendo el IBAN.
+- **Ver historial de transacciones**: consultar los movimientos realizados desde o hacia la cuenta seleccionada.
+
+---
+
+### 📄 Historial de transacciones
+
+![Historial de transacciones](fotos/historial.png)
+
+Esta pantalla muestra un listado detallado de las transacciones asociadas a una cuenta.  
+Cada movimiento incluye la siguiente información:
+
+- **Concepto**: descripción de la operación.  
+- **Cuenta origen**: IBAN de la cuenta que realizó el envío.  
+- **Cuenta destino**: IBAN de la cuenta que recibió el importe.  
+- **Importe**: cantidad transferida.  
+- **Tipo de transacción**: puede ser transferencia, Bizum, compra, etc.
 ---
 
 ### 📲 Bizum
