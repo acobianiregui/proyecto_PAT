@@ -21,14 +21,15 @@ document.getElementById("registroForm").addEventListener("submit", async functio
 	if(password1 != password2){
 		errorMsg.textContent = "Las contraseñas no coinciden";
 		errorMsg.style.display = "block";
-		return; //Si no coinciden
+		return; 
+
 	}
 
 	try {
 		const response = await fetch(BASE_URL, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
-			credentials: "include", // para enviar cookies si las hay
+			credentials: "include", 
 			body: JSON.stringify({
 				nombre: nombre,
 				apellido: apellido,
@@ -42,7 +43,7 @@ document.getElementById("registroForm").addEventListener("submit", async functio
 		console.log(response.ok);
 
 		if (!response.ok) {
-			if(response.status == 409){ // Conflict
+			if(response.status == 409){ 
 				errorMsg.textContent = "Este mail ya tiene un cliente asociado. Intente otro mail";
 				errorMsg.style.display = "block";
 			} else {

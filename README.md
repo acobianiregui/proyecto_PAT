@@ -1,3 +1,5 @@
+### **Leer documento, incluye guía de uso, documentacion y planificación.**
+
 # 🏦 RoyaleBank
 RoyaleBank es una aplicación bancaria moderna que hemos desarrollado como proyecto académico. La plataforma permite a los usuarios registrarse como clientes, crear y gestionar sus cuentas bancarias, y realizar operaciones como transferencias y Bizums de forma rápida y segura.
 
@@ -47,6 +49,34 @@ Desde esta vista el usuario puede consultar saldos, movimientos y acceder a las 
 Desde esta pantalla el cliente puede crear una nueva cuenta bancaria.    
 La cuenta quedará automáticamente asociada a su perfil y será visible en la pantalla principal.
 
+
+---
+
+### 🔍 Acciones de una cuenta
+
+![Acciones de cuenta](fotos/acciones.png)
+
+Desde esta vista, el usuario puede gestionar una cuenta concreta.  
+Se ofrecen las siguientes funcionalidades:
+
+- **Hacer Bizum**: enviar dinero rápidamente a otros usuarios de RoyaleBank usando su número de teléfono.
+- **Hacer transferencia**: enviar dinero a otras cuentas bancarias introduciendo el IBAN.
+- **Ver historial de transacciones**: consultar los movimientos realizados desde o hacia la cuenta seleccionada.
+
+---
+
+### 📄 Historial de transacciones
+
+![Historial de transacciones](fotos/historial.png)
+
+Esta pantalla muestra un listado detallado de las transacciones asociadas a una cuenta.  
+Cada movimiento incluye la siguiente información:
+
+- **Concepto**: descripción de la operación.  
+- **Cuenta origen**: IBAN de la cuenta que realizó el envío.  
+- **Cuenta destino**: IBAN de la cuenta que recibió el importe.  
+- **Importe**: cantidad transferida.  
+- **Tipo de transacción**: puede ser transferencia, Bizum, compra, etc.
 ---
 
 ### 📲 Bizum
@@ -180,3 +210,86 @@ Se han desarrollado tests E2E usando `TestRestTemplate` para simular peticiones 
 - **Consulta de información del cliente**: se valida que un usuario logueado puede recuperar su perfil.
 - **Creación de cuenta bancaria**: se comprueba que un cliente autenticado puede crear nuevas cuentas asociadas a su perfil.
 - **Eliminación de cliente**: se testea que un cliente autenticado puede eliminar su cuenta y que los datos son eliminados correctamente.
+
+
+
+## ⚙️ Integración y Despliegue Continuos (CI/CD)
+
+### ✅ Integración continua (CI)
+
+Hemos configurado un sistema de integración continua que se activa automáticamente con cada `push` a la rama `main`.  
+Este proceso está definido en el archivo [`ci.yml`](.github/workflows/ci.yml), y realiza las siguientes acciones:
+
+- Compila el proyecto con **Maven**
+- Ejecuta todos los **tests unitarios, de integración y E2E**
+- Verifica que el código sea válido antes de aceptar cualquier cambio en producción
+
+Esto garantiza que todos los commits en `main` pasen por un control de calidad automático.
+
+### 🚀 Despliegue continuo (CD)
+
+Para el despliegue continuo utilizamos la plataforma [Render](https://render.com).  
+Cada vez que se hace `push` a la rama `main` y las comprobaciones del CI son exitosas, Render:
+
+- Construye la aplicación automáticamente
+- Realiza el despliegue del backend sin intervención manual
+
+Gracias a esto, aseguramos que los cambios en el proyecto estén disponibles en producción de forma rápida, segura y controlada.
+
+
+
+
+## 📅 Planificación 
+
+Nuestra planificación se basó en una estrategia clara y realista, dividiendo el trabajo por roles entre los cuatro miembros del equipo y organizando las tareas en iteraciones bien definidas.
+
+### 👥 Reparto del equipo
+- **Backend**: Miguel y Antón  
+- **Frontend**: Álvaro e Iñigo  
+- **Despliegue**: Antón
+
+### 🔄 Roadmap y Ciclos de Trabajo
+
+Dividimos el proyecto en tres grandes iteraciones:
+
+#### 🧩 Iteración 1: Estructura base y configuración inicial
+- Diseño de entidades y creación de repositorios (Miguel y Antón)
+- Inicio del desarrollo del frontend: pantalla principal del cliente (Álvaro e Iñigo)
+
+#### 🔍 Iteración 2: Lógica de negocio y pruebas
+- Implementación de los servicios y controladores en backend (Miguel y Antón)
+- Desarrollo de tests:
+  - Unitarios e integración para repositorios
+  - End-to-end para probar los endpoints de la API REST
+- Avance del frontend con navegación y funcionalidades como Bizum y Transferencias (Álvaro e Iñigo)
+
+#### 🚀 Iteración 3: Integración y despliegue
+- Integración completa de frontend con backend
+- Verificación de funcionamiento completo del sistema
+- Despliegue en la plataforma **Render** a cargo de Antón
+
+### 📋 División y priorización de tareas (Backlog)
+- [✔️] Diseño de entidades (Miguel, Antón)
+- [✔️] Creación de repositorios y pruebas unitarias (Miguel, Antón)
+- [✔️] Servicios y controladores REST (Miguel, Antón)
+- [✔️] Tests de integración y end-to-end (Miguel, Antón)
+- [✔️] Desarrollo de la interfaz (Álvaro, Iñigo)
+- [✔️] Verificación de funcionalidades del cliente (Álvaro, Iñigo)
+- [✔️] Despliegue final (Antón)
+
+### 🎯 Objetivos por iteración
+
+| Iteración | Objetivo principal                                   |
+|-----------|------------------------------------------------------|
+| 1         | Estructura del backend y primeras vistas del frontend|
+| 2         | Lógica de negocio, pruebas y avance del frontend     |
+| 3         | Integración completa y despliegue                    |
+
+### ⚠️ Funcionalidad pendiente: Tienda integrada con API externa
+
+Inicialmente teníamos planificada una funcionalidad adicional que consistía en una **tienda integrada** en la que se pudieran adquirir productos obtenidos desde una **API externa**.  
+La idea era que, al realizar una compra, esta se reflejara automáticamente en el **historial de transacciones** de la cuenta del usuario, como cualquier otra operación bancaria.
+
+Esta funcionalidad fue completamente **implementada y probada en el backend**, incluyendo la integración con la API externa, el procesamiento de pagos y el registro en el historial de movimientos.  
+Sin embargo, debido a **falta de tiempo provocada por el aplazamiento del examen de Microprocesadores**, **no pudimos completar su implementación en el frontend**.
+

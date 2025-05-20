@@ -1,13 +1,13 @@
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #ffffff;
-  color: #003366; /* Azul oscuro */
+  color: #003366; 
   margin: 0;
   padding: 0;
 }
 
 header, footer {
-  background-color: #e6f0ff; /* Azul muy claro */
+  background-color: #e6f0ff; 
   color: #003366;
   text-align: center;
   padding: 1em;

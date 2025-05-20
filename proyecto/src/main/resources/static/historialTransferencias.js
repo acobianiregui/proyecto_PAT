@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const tabla = document.getElementById("tablaTransferencias").querySelector("tbody");
   const saludo = document.getElementById("saludo");
 
-  //Obtener iban
   const params = new URLSearchParams(window.location.search);
   const iban = params.get("iban");
 
@@ -48,8 +47,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
           fila.innerHTML = `
             <td>${op.tipo}</td>
-            <td>${op.cuentaOrigen?.iban || '-'}</td>
-            <td>${op.cuentaDestino?.iban || '-'}</td>
+            <td>${op.cuenta_origen?.iban || '-'}</td>
+            <td>${op.cuenta_destino?.iban || '-'}</td>
             <td>${op.importe.toFixed(2)} €</td>
             <td>${op.concepto || '-'}</td>
           `;

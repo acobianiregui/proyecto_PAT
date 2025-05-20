@@ -9,7 +9,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     const response = await fetch(BASE_URL, {
       method: "GET",
-      credentials: "include" //Para enviar la cookie
+      credentials: "include" 
+
     });
 
     if (!response.ok) {
