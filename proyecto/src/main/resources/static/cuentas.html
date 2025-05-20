@@ -4,52 +4,38 @@
   <meta charset="UTF-8">
   <title>Mis cuentas - SegurBank</title>
   <link rel="stylesheet" href="estilos.css">
+
+  <script defer src="cliente.js"></script>
 </head>
 <body>
   <header>
-    <h1>Bienvenido a tu espacio personal</h1>
+    <h1 id="saludo">Bienvenido</h1>
+
   </header>
 
   <main>
     <section class="cuentas">
       <h2>Tus cuentas activas</h2>
 
-      <div class="contenedor-scroll">
-        <div class="tarjeta-cuenta">
-          <h3>Cuenta Corriente</h3>
-          <a href="bizum.html" class="boton">Realizar acciones</a>
+      <table id="tablaCuentas">
+        <thead>
+          <tr>
+            <th>IBAN</th>
+            <th>Saldo</th>
+            <th>Sucursal</th>
+          </tr>
+        </thead>
+        <tbody>
 
-
-          
-        </div>
-
-        <div class="tarjeta-cuenta">
-          <h3>Cuenta de Ahorro</h3>
-          <a href="bizum.html" class="boton">Realizar acciones</a>
-
-
-        </div>
-
-        <div class="tarjeta-cuenta">
-          <h3>Cuenta Joven</h3>
-          <a href="bizum.html" class="boton">Realizar acciones</a>
-
-        </div>
-
-        <div class="tarjeta-cuenta">
-            <h3>Cuenta Joven</h3>
-            <a href="bizum.html" class="boton">Realizar acciones</a>
-  
-          </div>
-        <div class="tarjeta-cuenta">
-          <h3>Cuenta Joven</h3>
-          <a href="bizum.html" class="boton">Realizar acciones</a>
-
-        </div>
-
-      </div>
+        </tbody>
+      </table>
     </section>
   </main>
 
+  <footer>
+    <p>&copy; 2025 RoyaleBank - Todos los derechos reservados</p>
+  </footer>
+
 </body>
 </html>
+
