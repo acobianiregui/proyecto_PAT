@@ -125,25 +125,6 @@ p {
 .boton:hover {
   background-color: #005f99;
 }
-.tarjeta-cuenta {
-  background-color: #ffffff;
-  border: 1px solid #b3cce6;
-  border-radius: 10px;
-  padding: 15px;
-  margin-bottom: 20px; 
-  box-shadow: 0 2px 8px rgba(0, 51, 102, 0.1);
-}
 
-.tarjeta-cuenta select {
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  border: 1px solid #007acc;
-  border-radius: 6px;
-  background-color: #e6f0ff;
-  color: #003366;
-  font-weight: bold;
-  cursor: pointer;
-}
 
   
