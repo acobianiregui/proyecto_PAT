@@ -32,6 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = `transferencia.html?iban=${encodeURIComponent(iban)}`;
   });
   btnHistorialTransferencias.addEventListener("click", () => {
-      window.location.href = `historialTransferencia.html?iban=${encodeURIComponent(iban)}`;
+      window.location.href = `historialTransferencias.html?iban=${encodeURIComponent(iban)}`;
     });
 });
