@@ -38,6 +38,15 @@ Desde esta vista el usuario puede consultar saldos, movimientos y acceder a las 
 
 ---
 
+### 🆕 Crear cuenta
+
+![Crear cuenta](fotos/crearcuenta.png)
+
+Desde esta pantalla el cliente puede crear una nueva cuenta bancaria.    
+La cuenta quedará automáticamente asociada a su perfil y será visible en la pantalla principal.
+
+---
+
 ### 📲 Bizum
 
 ![Bizum](fotos/bizum.png)
