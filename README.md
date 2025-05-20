@@ -31,7 +31,7 @@ Además el formulario de registro incluye validaciones en el lado del cliente ut
 
 ### 🏠 Pantalla principal (Cuentas del cliente)
 
-![Pantalla principal](ruta/a/la/captura-pantalla-principal.png)
+![Pantalla principal](fotos/principal.png)
 
 Aquí se muestran todas las cuentas asociadas al cliente.  
 Desde esta vista el usuario puede consultar saldos, movimientos y acceder a las funciones de **Bizum** y **transferencia**.
@@ -40,7 +40,7 @@ Desde esta vista el usuario puede consultar saldos, movimientos y acceder a las 
 
 ### 📲 Bizum
 
-![Bizum](ruta/a/la/captura-bizum.png)
+![Bizum](fotos/bizum.png)
 
 Funcionalidad para enviar dinero de forma rápida a otros usuarios registrados en RoyaleBank utilizando solo su número de teléfono.  
 El sistema verifica que el destinatario esté registrado antes de realizar la operación.
@@ -49,7 +49,7 @@ El sistema verifica que el destinatario esté registrado antes de realizar la op
 
 ### 💸 Transferencia
 
-![Transferencia](ruta/a/la/captura-transferencia.png)
+![Transferencia](fotos/transferencia.png)
 
 Desde esta sección, el cliente puede realizar transferencias bancarias entre sus cuentas o hacia cuentas de terceros dentro del sistema RoyaleBank.  
 Se requiere el número de cuenta destino y el importe.
