@@ -1,5 +1,5 @@
 const BASE_URL = window.location.origin.includes("localhost")
-  ? "http://localhost:8080/api/royale"
+  ? "http://localhost:8080/api/royale/bizum"
   : "https://royale-1wd7.onrender.com/api/royale/bizum";
 
 document.addEventListener("DOMContentLoaded", () => {
