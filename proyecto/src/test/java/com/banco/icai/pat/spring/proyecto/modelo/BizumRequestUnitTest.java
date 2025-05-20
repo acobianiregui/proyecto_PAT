@@ -29,7 +29,7 @@ public class BizumRequestUnitTest {
         Set<ConstraintViolation<BizumRequest>> violations= validator.validate(bizumRequest);
         assertEquals(1, violations.size());
         assertEquals("importe", violations.iterator().next().getPropertyPath().toString());
-        assertEquals(0, violations.iterator().next().getInvalidValue());
+        assertEquals(0.0, violations.iterator().next().getInvalidValue());
     }
     @Test
     public void telefonoErroneo(){

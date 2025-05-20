@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }),
       });
 
-      const data = await response.json();
+
 
       if (!response.ok) {
         mensaje.textContent = data.mensaje || "No se pudo realizar el Bizum.";
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       mensaje.style.color = "green";
-      mensaje.textContent = "Bizum enviado correctamente.";
+      mensaje.textContent = `Bizum enviado correctamente: ${cantidad.toFixed(2)} €`;
       form.reset();
 
     } catch (error) {
