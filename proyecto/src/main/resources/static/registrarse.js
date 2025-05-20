@@ -1,4 +1,4 @@
-// Define BASE_URL según el entorno
+
 const BASE_URL = window.location.hostname === 'localhost'
 	? "http://localhost:8080/api/royale"
 	: "https://https://royale-1wd7.onrender.com/api/royale";
@@ -8,6 +8,7 @@ document.getElementById("registroForm").addEventListener("submit", async functio
 
 	const errorMsg = document.getElementById("registerError");
 
+
 	let nombre = document.getElementById("nombre").value;
 	let apellido = document.getElementById("apellido").value;
 	let dni = document.getElementById("dni").value;
@@ -15,6 +16,7 @@ document.getElementById("registroForm").addEventListener("submit", async functio
 	let email = document.getElementById("email").value;
 	let password1 = document.getElementById("password1").value;
 	let password2 = document.getElementById("password2").value;
+
 
 	if(password1 != password2){
 		errorMsg.textContent = "Las contraseñas no coinciden";
@@ -57,3 +59,4 @@ document.getElementById("registroForm").addEventListener("submit", async functio
 		errorMsg.style.display = "block";
 	}
 });
+
