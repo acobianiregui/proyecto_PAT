@@ -1,6 +1,6 @@
 const BASE_URL = window.location.origin.includes("localhost")
-  ? "http://localhost:8080/api/royale/bizum"
-  : "https://royale-1wd7.onrender.com/api/royale/bizum";
+  ? "http://localhost:8080/api/royale"
+  : "https://royale-1wd7.onrender.com/api/royale";
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("bizumForm");
